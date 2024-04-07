@@ -1,0 +1,108 @@
+// ------
+// SHARED
+// ------
+.pz-row,
+.pz-col {
+  // these can act as a container...
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 1px; // prevent collapse
+
+  // or as a child...
+  // the flex basis is set to 0
+  // because it makes flex grow work more predictably
+  // ie if one item is flexgrow:2 and the rest are flexgrow:1
+  // the 2 will be exactly double the one
+  flex: 1 1 0%; // grow, shrink, basis
+}
+
+// GRID SECTIONS
+.pz-desktop {
+  .pz-section {
+    & + .pz-section {
+      margin-top: ($gutter-page-desktop - ($gutter-col * 0.5));
+    }
+  }
+}
+
+.pz-section-filled {
+  padding-top: ($gutter-page-desktop - ($gutter-col * 0.5));
+  padding-bottom: ($gutter-page-desktop - ($gutter-col * 0.5));
+
+  & + .pz-section-filled {
+    margin-top: 0;
+  }
+}
+
+// ---------
+// GRID ROWS
+// ---------
+// rows establish the grid and the page gutter
+// they should be used with column children
+.pz-row {
+  margin: 0 auto;
+  max-width: $row-max-width-desktop;
+  padding: 0 ($gutter-page-desktop - ($gutter-col * 0.5));
+}
+
+// ------------
+// GRID COLUMNS
+// ------------
+// columns are even height
+// and have gutters between
+.pz-col {
+  &.pz-col-full {
+    min-width: 100%;
+  }
+}
+
+// ------------
+// GRID MODULES
+// ------------
+// modules simulate gutters
+// this makes it simpler to get different column widths
+// to align as expected
+.pz-module {
+  flex: 1 1 auto;
+  margin: ($gutter-col * 0.5);
+}
+
+// ---------------
+// MOBILE OVERIDES
+// ---------------
+@include view-width-max(xl) {
+  .pz-col-full-xl {
+    min-width: 100%;
+  }
+}
+
+@include view-width-max(lg) {
+  .pz-col-full-lg {
+    min-width: 100%;
+  }
+}
+
+@include view-width-max(md) {
+  .pz-col-full-md {
+    min-width: 100%;
+  }
+}
+
+@include view-width-max(sm) {
+  .pz-col-full-sm {
+    min-width: 100%;
+  }
+}
+
+@include view-width-max(xs) {
+  .pz-row {
+    max-width: $row-max-width-mobile;
+    padding: 0 ($gutter-page-mobile - ($gutter-col * 0.5));
+  }
+
+  .pz-col,
+  .pz-col-full-xs {
+    min-width: 100%;
+  }
+}

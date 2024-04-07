@@ -1,0 +1,975 @@
+@import 'shared/scss-helpers/mixins.scss';
+
+$desktop-game-page-height: calc(100vh - 55px);
+$mobile-game-page-height: calc(var(--vh, 1vh) * 100 - 46px);
+$games-app-page-height: calc(var(--vh, 1vh) * 100);
+
+.pz-moment {
+  width: 100%;
+  color: $black;
+  margin: 0 auto;
+  min-height: $desktop-game-page-height;
+  text-align: center;
+  padding: 0 15px;
+}
+
+#sudoku-container,
+#letter-boxed-container,
+#connections-container,
+#tiles-container {
+  .pz-moment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.pz-moment__container {
+  @include flexbox(column, center, space-around);
+  position: relative;
+  padding: 0 15px;
+  height: 100%;
+
+  &.alternate {
+    padding: 30px 15px;
+    justify-content: flex-start;
+  }
+
+  &.alternate.shorten-top-whitespace {
+    @include view-width-max(sm) {
+      padding: 0 15px 30px;
+    }
+
+    > .pz-moment__content > .pz-moment__icon.large {
+      @include view-width-max(sm) {
+        margin-top: 55px;
+      }
+    }
+  }
+}
+
+.sequence-animation > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.pz-moment__content {
+  max-width: 100%;
+}
+
+#spelling-bee-container {
+  .pz-moment__content {
+    @include view-width-min(md) {
+      max-width: 50%;
+    }
+  }
+}
+
+/* FRAME */
+.pz-moment__frame {
+  width: 100%;
+  left: 0;
+  right: 0;
+  min-height: $desktop-game-page-height;
+}
+
+.pz-games-app .pz-moment__frame {
+  font: -apple-system-body;
+}
+
+.pz-moment__frame:not(.on-stage) {
+  display: none;
+}
+
+.pz-moment__frame.fly-in {
+  animation: flyIn 600ms;
+  animation-timing-function: ease;
+}
+
+.pz-moment__frame.fly-out {
+  animation: flyOut 600ms;
+  animation-timing-function: ease;
+  animation-timing-function: cubic-bezier(1, -0.165, 0.11, 0.925);
+  animation-timing-function: cubic-bezier(1, -0.2, 0, 1.005);
+  opacity: 0;
+}
+
+.slide-up {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 600ms cubic-bezier(0.1, 0.2, 0.3, 1);
+}
+
+/* LOADING */
+.pz-moment__loading {
+  animation: fadeIn 1200ms;
+  animation-timing-function: ease-out;
+  text-align: center;
+  min-height: $desktop-game-page-height;
+}
+
+.pz-loader-container {
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+
+  @include view-width-min(md) {
+    padding-left: calc(25% + 15px);
+    padding-right: calc(25% + 15px);
+  }
+}
+
+.pz-loader {
+  width: 150px;
+  height: 8px;
+  border-radius: 104px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pz-loader__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 98%;
+  border-radius: 104px;
+  transition: right 200ms ease;
+}
+
+/* BUTTONS */
+.pz-moment__button-group {
+  margin-bottom: 22px;
+}
+
+.pz-moment__button-group > .header {
+  line-height: 20px;
+  font-family: $franklin;
+  font-size: 16px;
+  margin-bottom: 9px;
+  font-weight: $weight-medium-bold;
+}
+
+.pz-moment__button-wrapper {
+  @include view-width-min(md) {
+    display: flex;
+    // by default buttons at desktop size show in reverse order
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+}
+
+// modifier to set buttons in default row order
+.pz-moment__button-wrapper.default {
+  @include view-width-min(md) {
+    flex-direction: row;
+  }
+}
+
+.pz-moment__button-wrapper.vertical {
+  @include view-width-min(md) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.pz-moment__button {
+  position: relative;
+  border: none;
+  height: 3em;
+  border-radius: 1.5em;
+  align-content: center;
+  font: $weight-medium-bold 1em 'nyt-franklin';
+  letter-spacing: 0.05em;
+  margin: 0 10px 8px;
+  background: $black;
+  color: $white;
+  padding: 1px 16px;
+
+  min-width: 9.375em; // fallback if min not supported
+  min-width: calc(min(9.375em, 300px));
+
+  @include view-width-min(md) {
+    min-width: 9.375em;
+  }
+
+  &:last-of-type {
+    margin-bottom: 24px;
+
+    @include view-width-min(md) {
+      margin-bottom: 28px;
+    }
+
+    @include view-width-min(lg) {
+      margin-bottom: 32px;
+    }
+  }
+
+  &.secondary {
+    background: none;
+    color: $black;
+    border: 1px solid;
+    letter-spacing: 0.01em;
+  }
+
+  &.wide {
+    min-width: 11.25em;
+    min-width: calc(min(11.25em, 360px));
+  }
+
+  &.extra-wide {
+    min-width: 12.25em;
+    min-width: calc(min(12.25em, 360px));
+    letter-spacing: 0.025em;
+  }
+
+  &.transparent {
+    opacity: 50%;
+  }
+
+  &.extra-extra-wide {
+    min-width: 16.0625em;
+    min-width: calc(min(16.0625em, 514px));
+    letter-spacing: 0.025em;
+  }
+
+  &.link {
+    font: $weight-bold 1em/0.8 nyt-franklin;
+    height: auto;
+    color: $black;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid $black;
+    padding: 0;
+    margin: 30px auto;
+    letter-spacing: 0;
+  }
+
+  @include view-width-max(sm) {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  @include tiny-phone {
+    &.extra-extra-wide {
+      min-width: 100%;
+    }
+  }
+}
+
+.pz-moment__button:focus {
+  outline: none;
+}
+
+.pz-moment__button:focus::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px dotted lightblue;
+  border-radius: 1.875em;
+}
+
+.pz-moment__button:hover {
+  cursor: pointer;
+}
+
+.pz-moment__button.primary:active {
+  background: $black;
+}
+
+.pz-moment__button.secondary:active {
+  color: $black;
+  border-color: $black;
+}
+
+.pz-moment__actions .pz-moment__button + .pz-moment__button {
+  margin-top: 12px;
+
+  @include view-width-min(md) {
+    margin-top: 20px;
+  }
+}
+
+.pz-moment__button--padlock {
+  background: url('/public/assets/padlock-black.svg') center/100%
+    no-repeat;
+  width: 0.5625em;
+  height: 0.75em;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.pz-moment__button--checked {
+  background: url('/public/assets/icons/check-white.svg') center/100%
+    no-repeat;
+  width: 0.5625em;
+  height: 0.75em;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.pz-moment__button.primary {
+  .pz-moment__button--padlock {
+    background-image: url('/public/assets/padlock.svg');
+  }
+}
+
+/* CLOSE */
+
+.pz-moment__close_text {
+  font: $weight-medium-bold 1em 'nyt-franklin';
+  color: #000;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  padding: 0;
+
+  .inner-text {
+    margin-right: 10px;
+  }
+
+  i {
+    margin: 0;
+  }
+
+  @include view-width-min(md) {
+    font-size: 1.2em;
+
+    i {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+.pz-moment__close {
+  font: $weight-medium-bold 1em 'nyt-franklin';
+  $padding-y: 28px;
+  $padding-x: 24px;
+  $size-sm: 0.75em;
+  $size-lg: 1.5em;
+  position: absolute;
+  right: -15px;
+  top: 0;
+  background: none;
+  border: 0;
+  padding: $padding-y $padding-x;
+  text-indent: -9999px;
+  width: calc(#{$size-sm} + #{$padding-x} * 2);
+  height: calc(#{$size-sm} + #{$padding-y} * 2);
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: calc(4 / 3 * #{$size-sm});
+    height: 2px;
+    top: calc(#{$padding-y} + #{$size-sm} / 2);
+    left: calc(#{$padding-x} - #{$size-sm} / 6);
+    background: $black;
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(-135deg);
+  }
+
+  @include view-width-min(md) {
+    width: calc(#{$size-lg} + #{$padding-x} * 2);
+    height: calc(#{$size-lg} + #{$padding-y} * 2);
+
+    &::before,
+    &::after {
+      width: calc(4 / 3 * #{$size-lg});
+      top: calc(#{$padding-y} + #{$size-lg} / 2);
+      left: calc(#{$padding-x} - #{$size-lg} / 6);
+    }
+  }
+}
+
+/* ICON */
+.pz-moment__icon {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 4px;
+
+  &.large {
+    height: 84px;
+
+    @include view-width-min(md) {
+      height: 96px;
+    }
+  }
+
+  &.medium {
+    height: 64px;
+    margin-bottom: 17px;
+
+    @include view-width-min(md) {
+      height: 84px;
+    }
+  }
+
+  &.small {
+    height: 48px;
+  }
+
+  &.spelling-bee {
+    background-image: url('/public/assets/expansion-games/spelling-bee-card-icon.svg');
+  }
+
+  &.spelling-bee-loved {
+    background-image: url('/public/assets/bee-loved-1.svg');
+
+    height: 60px;
+    margin-bottom: 8px;
+
+    @include view-width-min(md) {
+      height: 72px;
+      margin-bottom: 12px;
+    }
+
+    @include view-width-min(lg) {
+      height: 72px;
+      margin-bottom: 12px;
+    }
+  }
+
+  &.spelling-bee-smarty {
+    background-image: url('/public/assets/bee-smarty-1.svg');
+
+    height: 81px;
+    margin-bottom: 8px;
+
+    @include view-width-min(md) {
+      height: 102px;
+      margin-bottom: 12px;
+    }
+
+    @include view-width-min(lg) {
+      height: 102px;
+      margin-bottom: 12px;
+    }
+  }
+
+  &.spelling-bee-queen {
+    background-image: url('/public/assets/bee-queen-1.svg');
+
+    height: 74px;
+    margin-bottom: 8px;
+
+    @include view-width-min(md) {
+      height: 96px;
+      margin-bottom: 12px;
+    }
+
+    @include view-width-min(lg) {
+      height: 96px;
+      margin-bottom: 12px;
+    }
+  }
+
+  // Styling for the various bee + hat
+  // icons shown on Genius congrats moment
+  .spelling-bee-congrats-icon {
+    height: 93px;
+    margin-bottom: 8px;
+
+    @include view-width-min(md) {
+      height: 118px;
+      margin-bottom: 12px;
+    }
+
+    @include view-width-min(lg) {
+      height: 118px;
+      margin-bottom: 12px;
+    }
+  }
+
+  &.spelling-bee-spooky {
+    background-image: url('/public/assets/bee-spooky-0.svg');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-valentines {
+    background-image: url('/public/assets/bee-valentines.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-birthday {
+    background-image: url('/public/assets/bee-birthday.svg');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  // New Years icons from 2024-2030
+  &.spelling-bee-ny-2024 {
+    background-image: url('/public/assets/bee-ny-2024.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-ny-2025 {
+    background-image: url('/public/assets/bee-ny-2025.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-ny-2026 {
+    background-image: url('/public/assets/bee-ny-2026.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-ny-2027 {
+    background-image: url('/public/assets/bee-ny-2027.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-ny-2028 {
+    background-image: url('/public/assets/bee-ny-2028.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-ny-2029 {
+    background-image: url('/public/assets/bee-ny-2029.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-ny-2030 {
+    background-image: url('/public/assets/bee-ny-2030.png');
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.spelling-bee-gold-star {
+    background-image: url('/public/assets/spelling-bee-hub/gold-star-icon.svg');
+    margin: 0 0 20px 0;
+
+    @extend .spelling-bee-congrats-icon;
+  }
+
+  &.letter-boxed {
+    background-image: url('/public/assets/expansion-games/letter-boxed-card-icon.svg');
+  }
+
+  &.tiles {
+    background-image: url('/public/assets/expansion-games/tiles-card-icon.svg');
+  }
+
+  &.vertex {
+    background-image: url('/public/assets/expansion-games/vertex-card-icon.svg');
+  }
+
+  &.sudoku {
+    background-image: url('/public/assets/expansion-games/sudoku-card-icon.svg');
+  }
+
+  &.connections {
+    background-image: url('/public/assets/icons/connections.svg');
+  }
+}
+
+#spelling-bee-container {
+  .pz-moment__icon {
+    &.large {
+      margin-top: 74px;
+
+      @include view-width-min(md) {
+        margin-top: 122px;
+      }
+    }
+
+    &.medium {
+      margin-top: 39px;
+
+      @include view-width-min(md) {
+        margin-top: 74px;
+      }
+    }
+
+    &.small {
+      @include view-width-min(md) {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+/* TITLE */
+.pz-moment__title {
+  font-family: 'NYT-KarnakCondensed';
+  font-weight: $weight-bold;
+
+  &.large {
+    @include font-size-clamp(2.25em, 110px);
+    line-height: 1.056;
+    margin-bottom: 8px;
+
+    @include view-width-min(md) {
+      font-size: 2.75em;
+      line-height: 1.045;
+      margin-bottom: 12px;
+    }
+
+    @include view-width-min(lg) {
+      font-size: 3.125em;
+      line-height: 1.04;
+      margin-bottom: 12px;
+    }
+  }
+
+  &.med-large {
+    @include font-size-clamp(1.5625em, 110px);
+    line-height: 1.056;
+    margin-bottom: 8px;
+
+    @include view-width-min(md) {
+      font-size: 2.25em;
+      line-height: 1.045;
+      margin-bottom: 12px;
+    }
+
+    @include view-width-min(lg) {
+      font-size: 3.125em;
+      line-height: 1.04;
+      margin-bottom: 12px;
+    }
+  }
+
+  &.medium {
+    font-size: 1.75em;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+
+  &.small {
+    font-size: 1.125em;
+    line-height: 1.111;
+    margin-bottom: 90px;
+
+    @include view-width-min(md) {
+      margin-bottom: 140px;
+    }
+  }
+
+  &.extra-small {
+    font-size: 0.8em;
+    letter-spacing: 0.05em;
+    margin-bottom: 90px;
+
+    @include view-width-min(md) {
+      margin-bottom: 140px;
+    }
+  }
+
+  &.franklin {
+    font-family: 'nyt-franklin';
+  }
+}
+
+/* INFO */
+.pz-moment__description {
+  font-weight: $weight-medium;
+  font-family: 'NYT-Karnak';
+  line-height: 1.167;
+  margin-bottom: 20px;
+
+  @include font-size-clamp(1.55em, 60px);
+
+  @include view-width-min(md) {
+    font-size: 2em;
+    line-height: 1.125;
+    margin-bottom: 32px;
+  }
+
+  @include view-width-min(lg) {
+    font-size: 2.375em;
+    line-height: 1.158;
+    margin-bottom: 36px;
+  }
+
+  em {
+    font-weight: $weight-medium-bold;
+  }
+
+  &.small {
+    font: 1.25em/1.2 'nyt-franklin';
+    margin-top: 16px;
+
+    @include view-width-min(md) {
+      font-size: 1.75em;
+      line-height: 1.143;
+      margin-top: 20px;
+    }
+
+    @include view-width-min(lg) {
+      font-size: 2.125em;
+      line-height: 1.176;
+      margin-top: 24px;
+    }
+  }
+
+  &.extra-small {
+    font: 1.15em/1.2 'nyt-karnak';
+    margin: 45px 0;
+  }
+
+  &.karnak {
+    font-family: 'nyt-karnak';
+  }
+
+  &.franklin {
+    font-family: 'nyt-franklin';
+  }
+}
+
+.pz-moment__meta {
+  font-family: 1em 'nyt-franklin';
+  display: block;
+  margin-bottom: 20px;
+  font-weight: $weight-medium-bold;
+  letter-spacing: 0.01em;
+  line-height: 20px;
+}
+
+.pz-moment__info {
+  font-family: 'nyt-franklin';
+}
+
+.pz-moment__info-date {
+  display: block;
+  font-size: 1em;
+  line-height: 1.25;
+  font-weight: $weight-medium-bold;
+  letter-spacing: 0.005em;
+}
+
+.pz-moment__info-editor {
+  display: block;
+  font-size: 0.875em;
+  line-height: 1.286;
+  font-weight: $weight-medium;
+  letter-spacing: 0.01em;
+}
+
+.pz-moment__promo {
+  display: block;
+  background-image: url('/public/assets/oxford.svg');
+  width: 136px;
+  height: 23px;
+  margin: 50px auto 0;
+}
+
+.pz-moment__info-text {
+  display: block;
+  font-size: 1em;
+  line-height: 1.25;
+  font-weight: $weight-medium;
+  letter-spacing: 0.005em;
+}
+
+.pz-moment__body {
+  font: 1em/1.25 'nyt-franklin';
+  letter-spacing: 0.005em;
+
+  a {
+    font-weight: $weight-medium-bold;
+    text-decoration: underline;
+  }
+}
+
+#revealed {
+  margin-top: 140px;
+
+  .pz-moment__title + .pz-moment__description {
+    min-height: 1.5em;
+    margin-top: 20px;
+  }
+
+  .pz-moment__icon.large.spelling-bee-gold-star {
+    margin-top: 0;
+  }
+}
+
+.pz-mobile:not(.pz-play-tab) {
+  #spelling-bee-container .pz-game-screen,
+  #connections-container .pz-game-screen,
+  .pz-moment__loading,
+  .pz-moment__frame {
+    height: $mobile-game-page-height;
+    min-height: $mobile-game-page-height;
+  }
+
+  #spelling-bee-container {
+    .pz-moment {
+      height: auto;
+      min-height: $mobile-game-page-height;
+    }
+  }
+
+  #tiles-container,
+  #sudoku-container,
+  #letter-boxed-container {
+    .pz-moment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@include view-device(desktop) {
+  .pz-moment__congrats {
+    border-top: 1px solid #bfbfbf;
+  }
+}
+
+.pz-moment__frame.pz-moment__cutoff {
+  overflow-y: auto;
+}
+
+.pz-hybrid:not(.pz-play-tab) {
+  #spelling-bee-container .pz-game-screen {
+    min-height: $games-app-page-height;
+    height: $games-app-page-height;
+    max-height: $games-app-page-height;
+  }
+
+  .pz-moment__frame {
+    height: $games-app-page-height;
+  }
+
+  #spelling-bee-container {
+    .pz-moment {
+      min-height: $games-app-page-height;
+    }
+  }
+
+  #sudoku-container,
+  #letter-boxed-container,
+  #connections-container,
+  #tiles-container {
+    .pz-moment {
+      margin-top: -$nav-height-mobile;
+    }
+  }
+
+  .pz-moment__close {
+    z-index: 101;
+  }
+}
+
+/* PLAY TAB */
+.pz-mobile.pz-play-tab,
+.pz-mobile.pz-newsreader.pz-ios {
+  #spelling-bee-container {
+    .pz-moment {
+      height: 100vh;
+    }
+  }
+
+  #sudoku-container,
+  #letter-boxed-container,
+  #tiles-container {
+    .pz-moment {
+      padding-bottom: $nav-height-mobile;
+    }
+  }
+
+  .pz-nav {
+    visibility: hidden;
+  }
+
+  .pz-nav.show-mobile-toolbar {
+    visibility: visible;
+  }
+
+  .pz-moment__frame:not(.pz-game-screen) {
+    height: calc(var(--vh, 1vh) * 100);
+    display: none;
+    position: fixed;
+    z-index: 200;
+    top: 0;
+    opacity: 0;
+    transition: opacity 600ms;
+    animation: none;
+  }
+
+  .pz-moment__frame.on-stage {
+    display: block;
+  }
+
+  .pz-moment__frame.playtab-fade-in {
+    opacity: 1;
+  }
+}
+
+.pz-play-tab {
+  #spelling-bee-container,
+  #spelling-bee-container .pz-game-wrapper,
+  #spelling-bee-container .pz-game-screen {
+    height: 100%;
+  }
+}
+
+.pz-game-wrapper {
+  position: relative;
+}
+
+//Games Sale
+.pz-error__button.sale {
+  display: none;
+}
+
+.pz-games-sale-cta {
+  #spelling-bee-container,
+  #letter-boxed-container,
+  #tiles-container,
+  #vertex-container {
+    .pz-moment__button {
+      min-width: 11.75em; // fallback if min not supported
+      min-width: calc(min(11.75em, 300px));
+      letter-spacing: 0;
+    }
+  }
+
+  #tiles-container,
+  #letter-boxed-container {
+    .modal-congrats__actions .pz-modal__button.medium {
+      width: 180px;
+    }
+  }
+
+  .pz-error__button.default {
+    display: none;
+  }
+
+  .pz-error__button.sale {
+    display: inline-block;
+    font-weight: 600;
+  }
+}

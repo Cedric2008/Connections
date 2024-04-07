@@ -1,0 +1,166 @@
+@import 'shared/scss-helpers/index.scss';
+@import './intercept.scss';
+@import './modals.scss';
+@import './moments.scss';
+
+.pz-header.pz-game-header .pz-nav-title {
+  // override center on mobile
+  text-align: left;
+}
+
+.pz-game-screen,
+.pz-game-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.pz-game-screen {
+  min-height: 90vh;
+  position: relative;
+}
+
+#spelling-bee-container .pz-game-screen {
+  position: relative;
+  min-height: 550px;
+
+  .pz-play-tab & {
+    min-height: initial;
+  }
+}
+
+.pz-game-field {
+  background: #fff;
+  flex: 1 0 auto;
+}
+
+.pz-game-title-bar {
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  .pz-game-title {
+    font-family: 'nyt-karnakcondensed';
+    font-size: 42px;
+    font-weight: 700;
+    font-weight: bold;
+    margin-right: 16px;
+  }
+
+  .pz-game-title__trademark {
+    &::after {
+      content: '®';
+      font-size: 18px;
+      vertical-align: super;
+    }
+  }
+
+  .pz-game-date {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 300;
+  }
+
+  .pz-byline__text {
+    font-size: 15px;
+  }
+}
+
+.pz-game-toolbar {
+  border-top: 1px solid #bfbfbf;
+  border-bottom: 1px solid #bfbfbf;
+
+  .pz-mobile & {
+    display: none;
+  }
+}
+
+.pz-game-toolbar-content {
+  margin-top: 0;
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.pz-toolbar-button {
+  font-family: 'nyt-franklin';
+  font-size: 1.125em;
+  line-height: 45px;
+  display: inline-block;
+  padding: 6px 13px 4px;
+  color: $black;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $gray6;
+    color: $black;
+  }
+}
+
+// ----------------
+// MOBILE OVERRIDES
+// ----------------
+
+@media (max-width: 992px) {
+  .pz-game-title-bar {
+    .pz-game-title {
+      font-size: 37px;
+    }
+
+    .pz-game-date {
+      font-size: 25px;
+    }
+  }
+}
+
+@include view-device(mobile) {
+  #connections-container .pz-game-field,
+  #sudoku-container .pz-game-field {
+    overflow-y: auto;
+  }
+
+  #spelling-bee-container .pz-game-field {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    max-height: none;
+    min-height: initial;
+    padding: 0;
+  }
+
+  @include view-width-max(sm) {
+    // Toolbar slides into Nav when device is mobile and small
+    // NOTE: This has some weird behavior on scroll
+    .pz-game-toolbar,
+    .pz-game-title-bar {
+      display: none;
+    }
+
+    .pz-game-field {
+      margin-top: 0;
+    }
+  }
+}
+
+.pz-byline {
+  .pz-byline__image {
+    height: 48px;
+    width: 48px;
+    margin-right: 7px;
+  }
+  .pz-byline__text {
+    font-size: 15px;
+    letter-spacing: 0.24px;
+  }
+}
+
+@include view-device(desktop) {
+  .pz-byline {
+    @include flexbox(row, center, flex-start);
+    padding-top: 5px;
+  }
+}
+
+@include view-device(mobile) {
+  .pz-byline {
+    @include flexbox(row, center, center);
+    height: 40px;
+  }
+}

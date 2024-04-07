@@ -1,0 +1,723 @@
+// NOTE: THIS IS AN AGRESSIVE OVERRIDE THAT ONLY
+// MAKES SENSE FOR GAMES WITH NO START MODAL
+#portal-game-modals {
+  position: fixed;
+  z-index: 99;
+}
+
+.xwd__modal--body.modal-settings-body {
+  padding: 48px 56px;
+}
+
+@media screen and (max-height: 699px) {
+  // Tiles
+  .tlz-palettelist-items-pag {
+    margin: 12px 0;
+  }
+
+  .tlz-palettelist-items-pag-6 {
+    row-gap: 5px;
+  }
+
+  .tlz-palette-grid-disabled li:nth-child(n + 7) {
+    display: none;
+  }
+}
+
+@media screen and (min-height: 700px) {
+  // Tiles
+  .tlz-palettelist-items-pag {
+    margin: 24px 0;
+  }
+
+  .tlz-palettelist-items-pag-6 {
+    row-gap: 12px;
+  }
+
+  .tlz-palette-grid-disabled li:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+.xwd__modal--body.modal-rules-body {
+  height: initial;
+  padding: 48px 56px;
+}
+
+@media screen and (max-width: 499px) {
+  .xwd__modal--body.modal-settings-body.su-modal-settings,
+  .xwd__modal--body.modal-pause-body.su-modal-pause {
+    min-height: 50%;
+  }
+
+  .xwd__modal--body.modal-settings-body {
+    padding: 40px 32px;
+  }
+
+  .xwd__modal--body.modal-settings-body.modal-settings-disabled {
+    padding: 40px 32px 0;
+  }
+
+  .xwd__modal--body.modal-settings-body.modal-settings-enabled {
+    padding-right: 0;
+    padding-left: 0;
+
+    .modal-system-header,
+    .modal-system-description {
+      margin-left: 32px;
+    }
+  }
+
+  .xwd__modal--body.modal-rules-body {
+    height: initial;
+    padding: 32px;
+  }
+
+  .xwd__modal--body.modal-pause-body,
+  .xwd__modal--body.modal-settings-body {
+    min-height: 50%;
+
+    .xwd__modal--content {
+      justify-content: initial;
+    }
+  }
+
+  .restrict-width {
+    max-width: 245px;
+  }
+
+  // Tiles
+  .tlz-palette-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 40px;
+    min-width: 420px;
+    overflow-x: scroll;
+    margin-bottom: 24px;
+  }
+
+  .tlz-palette-button {
+    padding: 4px;
+    max-height: 64px;
+    max-width: 200px;
+  }
+
+  .tlz-palette-grid-disabled {
+    overflow-x: hidden;
+    margin: 20px 0 24px;
+  }
+
+  .tlz-palette-grid-disabled li:nth-child(n + 11) {
+    display: none;
+  }
+
+  // Letter Boxed
+  .modal-wordlist {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .xwd__modal--body.modal-settings-body {
+    padding: 48px 56px;
+  }
+  .xwd__modal--body.modal-settings-body.modal-settings-disabled {
+    padding: 48px 56px 10px;
+  }
+  .xwd__modal--body.modal-settings-body.modal-settings-enabled {
+    padding-right: 0;
+    padding-left: 0;
+
+    .modal-system-header,
+    .modal-system-description {
+      margin-left: 56px;
+    }
+  }
+
+  .restrict-width {
+    max-width: unset;
+  }
+
+  .restrict-width {
+    max-width: unset;
+  }
+
+  // Tiles
+  .tlz-palette-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    min-width: unset;
+    overflow-x: unset;
+    margin-bottom: unset;
+  }
+
+  .tlz-palette-button {
+    padding: 0 12px 0 0;
+    max-height: unset;
+    max-width: unset;
+  }
+
+  .tlz-palette-grid-disabled {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    & li:nth-child(n + 7) {
+      display: none;
+    }
+  }
+
+  .horizontal-scroll {
+    nav {
+      display: none;
+    }
+  }
+
+  .tlz-palette-heading-arrows {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+    align-items: center;
+  }
+
+  .tlz-palette-arrows {
+    display: flex;
+    align-items: center;
+  }
+
+  .tlz-palette-arrow {
+    border: 0;
+    opacity: 0.25;
+    background: url('/public/assets/back.svg') center no-repeat;
+    background-size: contain;
+    bottom: 0;
+    height: 14px;
+    transition: all 100ms ease;
+    border-radius: 2pt;
+
+    &:focus {
+      box-shadow: 0 0 0 2pt $blue2;
+    }
+
+    &.tlz-palette-prev {
+      left: 25px;
+      margin-right: 24px;
+    }
+
+    &.tlz-palette-next {
+      right: 25px;
+      transform: rotate(180deg);
+    }
+
+    &.active {
+      opacity: 1;
+      visibility: inherit;
+      cursor: pointer;
+    }
+
+    .tlz-palette-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+  }
+
+  // Letter Boxed
+  .modal-wordlist {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.xwd__modal--body.limit-height {
+  height: initial;
+  min-height: 332px;
+  padding: 48px;
+}
+
+/* BUTTONS */
+.pz-modal__button.lrg_text {
+  font-size: 16px;
+  font-weight: $weight-medium-bold;
+}
+
+.pz-modal__button.large {
+  height: 48px;
+}
+
+.pz-modal__button.medium {
+  width: 150px;
+  height: 48px;
+}
+
+.pz-modal__button.white {
+  border: 1px solid $black;
+}
+
+.pz-modal__button.dark {
+  border: none;
+}
+
+.btn__emphasized {
+  font-weight: $weight-medium-bold;
+}
+
+.btn__bold {
+  font-weight: $weight-bold;
+}
+
+/* INPUTS */
+.pz-modal__checkbox {
+  margin: 15px;
+
+  input {
+    height: 15px;
+    margin-right: 5px;
+  }
+}
+
+/* CONGRATS MODAL */
+.modal-congrats-body {
+  .top-image {
+    margin-bottom: 24px;
+  }
+  .su-modal__star {
+    display: block;
+    height: 60px;
+    width: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTUiIGhlaWdodD0iNTUiIHZpZXdCb3g9IjAgMCA1NSA1NSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxyZWN0IHdpZHRoPSI1NSIgaGVpZ2h0PSI1NSIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMjcuNSIgY3k9IjI3LjUiIHI9IjI3LjUiIGZpbGw9IiNGQjlCMDAiLz4KPHBhdGggZD0iTTQyLjkyNjggMjQuMTI0M0M0Mi44Njc0IDIzLjkzOTIgNDIuNzAyOCAyMy44MDM5IDQyLjUwNTggMjMuNzc2NEwzMi40NjY1IDIyLjM4MDFMMjcuOTc4OSAxMy42NzI0QzI3LjgwMTggMTMuMzI4NyAyNy4yMjQ0IDEzLjMyODcgMjcuMDQ3MiAxMy42NzI0TDIyLjU1OTYgMjIuMzgwMUwxMi41MjA0IDIzLjc3NjRDMTIuMzIyNCAyMy44MDM5IDEyLjE1ODcgMjMuOTM5MiAxMi4wOTgzIDI0LjEyNDNDMTIuMDM3OCAyNC4zMDk0IDEyLjA4NzkgMjQuNTEyOCAxMi4yMzM4IDI0LjY0N0wxOS40ODczIDMxLjQyNDRMMTcuNzY3NyA0MC45ODk0QzE3LjcyNiA0MS4xNzk2IDE3LjgwOTQgNDEuMzcxOCAxNy45NjU3IDQxLjQ4NzdDMTguMDQ5MSA0MS41NTA4IDE4LjE2MzcgNDEuNTg1MyAxOC4yNjggNDEuNTg1M0MxOC4zNTEzIDQxLjU4NTMgMTguNDI0MyA0MS41NjUgMTguNTA3NyA0MS41MjQzTDI3LjQ5MTIgMzYuOTk4NkwzNi40NjQzIDQxLjUxNDJDMzYuNTM3MyA0MS41NDQ3IDM2LjYyMDYgNDEuNTY1IDM2LjcwNCA0MS41NjVIMzYuNzI0OUMzNy4wMDYyIDQxLjU2NSAzNy4yNDU5IDQxLjMzMTEgMzcuMjQ1OSA0MS4wNTY1QzM3LjI0NTkgNDAuOTc1MSAzNy4yMjUxIDQwLjg5MzggMzcuMTgzNCA0MC44MzI4TDM1LjQ5NTEgMzEuNDA1MUw0Mi43NTkgMjQuNjIxNkM0Mi45MDUgMjQuNDg5NCA0Mi45NTcxIDI0LjI4NiA0Mi44OTQ1IDI0LjEwMjlMNDIuOTI2OCAyNC4xMjQzWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSI1NSIgaGVpZ2h0PSI1NSIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K');
+    background-size: 55px 55px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 16px;
+  }
+  article.xwd__modal--content {
+    padding-top: 30px;
+  }
+  .modal-system-header {
+    font: 36px nyt-karnakcondensed;
+    line-height: 125%;
+    margin-bottom: 4px;
+  }
+  p {
+    margin-top: 10px;
+    margin-bottom: 18px;
+    font: 16px nyt-franklin;
+    line-height: 20px;
+    white-space: pre-line;
+    text-align: center;
+  }
+  div.btn__message {
+    margin: 16px 0;
+    p {
+      margin: 0;
+    }
+  }
+  .pz-modal__button.large {
+    padding-left: 40px;
+    padding-right: 40px;
+    width: unset;
+  }
+  .pz-modal__button.white.large.secondary {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .sb-content__link {
+    @include flexbox($justify: flex-start);
+    text-align: left;
+    margin-top: 10px;
+    width: 100%;
+    height: 80px;
+    border-radius: 5px;
+    padding: 0 20px;
+
+    @include view-width-min(md) {
+      padding-left: 10px;
+    }
+
+    .congrats-sb-icon {
+      margin-right: 16px;
+    }
+  }
+  .modal-card.sb {
+    border-radius: 5px;
+    opacity: unset;
+    transform: unset;
+  }
+
+  .modal-congrats__sb {
+    background-color: #f7da21;
+    &:hover {
+      background-color: #fff082;
+
+      .modal-card__arrow {
+        background-image: none;
+        transform: none;
+
+        &:before {
+          content: 'PLAY';
+          font: 700 11px 'nyt-franklin';
+          letter-spacing: 0.04em;
+          position: absolute;
+          right: 0;
+          top: -2px;
+        }
+      }
+    }
+  }
+  .modal-congrats__actions {
+    text-align: center;
+  }
+  .modal-congrats__action:not(:last-child) {
+    margin-bottom: 9px;
+  }
+  .tiles-modal-card {
+    width: 271px;
+  }
+}
+
+.xwd__modal--body.modal-congrats-body {
+  height: unset;
+}
+
+/* MODAL SYSTEM */
+.modal-settings-body {
+  .xwd__modal--content {
+    align-items: normal;
+  }
+}
+
+.modal-system-centered-container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  gap: 8px;
+  grid-auto-flow: column;
+  margin-top: 20px;
+  height: 31px;
+  line-height: 31px;
+}
+
+.modal-system-centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.modal-system-limit-width {
+  max-width: 250px;
+}
+
+.modal-wordlist {
+  letter-spacing: 0.2em;
+  font-weight: $weight-medium;
+  text-align: center;
+  color: $newsGray100;
+}
+.modal-wordlist::after {
+  content: '–';
+  color: $newsGray100;
+  position: relative;
+}
+.modal-wordlist:last-child::after {
+  content: '';
+}
+
+.modal-centered-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 25px;
+  text-align: center;
+  margin: 18px auto 0;
+  align-items: center;
+  justify-items: center;
+
+  section {
+    max-width: 311px;
+  }
+
+  a {
+    max-width: 112px;
+  }
+
+  .shorten-width {
+    max-width: 245px;
+  }
+}
+
+.modal-system-content-icon {
+  width: 31px;
+  height: 31px;
+}
+
+.modal-body,
+.modal-rules-body,
+.modal-pause-body {
+  .xwd__modal--content {
+    align-items: normal;
+    justify-content: normal;
+
+    .modal-system-header {
+      font: 28px nyt-karnakcondensed;
+      line-height: 125%;
+      margin-bottom: 4px;
+    }
+
+    .modal-system-description {
+      font: 20px nyt-karnak;
+      line-height: 24px;
+    }
+
+    .bullet-list {
+      list-style: initial;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      padding-left: 20px;
+
+      li {
+        margin-bottom: 4px;
+      }
+
+      li:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .modal-system-body {
+      font: 16px nyt-franklin;
+      line-height: 20px;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    .paragraph {
+      margin-top: 16px;
+    }
+  }
+}
+
+.pz-mobile {
+  .modal-body,
+  .modal-rules-body,
+  .modal-pause-body {
+    .xwd__modal--content {
+      .paragraph {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.modal-pause-body {
+  .xwd__modal--content {
+    align-items: center;
+    justify-content: center;
+
+    .modal-rules-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pz-modal__button.large {
+      margin-top: 30px;
+      padding-left: 38px;
+      padding-right: 38px;
+      width: initial;
+    }
+  }
+}
+
+/* SETTINGS MODALS */
+.xwd__modal--body.modal-settings-body {
+  height: unset;
+  min-height: unset;
+  > .xwd__modal--close {
+    padding: 16px;
+  }
+}
+
+.modal-settings-disabled {
+  overflow-x: hidden;
+}
+
+.modal-settings-body {
+  .modal-system-header {
+    font: 28px nyt-karnakcondensed;
+    line-height: 30px;
+    margin-bottom: 20px;
+  }
+  .modal-settings-form {
+    display: grid;
+    padding-top: 5px;
+    input {
+      margin-right: 10px;
+    }
+  }
+  .modal-settings-subheader {
+    font-weight: 700;
+    text-align: left;
+    margin-top: 10px;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+
+.inline-icon {
+  padding-right: 0;
+  height: 18px;
+  width: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: contain;
+}
+
+.kebab-icon {
+  background-image: url('/public/assets/icons/kebab.svg');
+}
+
+.settings-icon {
+  background-image: url('/public/assets/icons/settings.svg');
+}
+
+.italic {
+  font-style: italic;
+}
+
+.su-modal-system-label {
+  line-height: 24px;
+}
+
+////////////
+// Tiles //
+////////////
+
+.tlz-how-to-play-image:nth-of-type(1) {
+  background: url('/public/assets/tls-example-0.svg');
+}
+.tlz-how-to-play-image:nth-of-type(2) {
+  background: url('/public/assets/tls-example-1.svg');
+}
+.tlz-how-to-play-image:nth-of-type(3) {
+  background: url('/public/assets/tls-example-2.svg');
+}
+
+.tlz-palette-grid {
+  display: grid;
+  margin-top: 24px;
+}
+
+.tlz-palette-grid-disabled {
+  margin-top: 10px;
+  opacity: 0.2;
+}
+
+.tlz-palette-button {
+  width: 100%;
+  height: calc(100%);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 5px;
+  color: $newsGray100;
+  cursor: pointer;
+
+  // The border increases from 1 to 2 pixels on selection, if we
+  // add a margin around each item that is the pixel difference
+  // between resting border and selected border, the widths and
+  // heights remain constant.
+  margin: 1px;
+  border: 1px solid $newsGray25;
+
+  &.selected {
+    border: solid 2px black;
+    margin: 0;
+  }
+
+  &:focus {
+    border: solid 2px $blue2;
+    margin: 0;
+  }
+
+  div,
+  svg {
+    height: 42px;
+    width: 42px;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: contain;
+    margin: 12px;
+    background-color: $gray10;
+  }
+}
+
+.tlz-palette-button:disabled {
+  cursor: inherit;
+}
+
+.tlz-palettelist-pag {
+  position: relative;
+  display: flex;
+  height: 100%;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scroll-margin: 0;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tlz-palettelist-items-pag {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.tlz-palettelist-items-pag-4 {
+  padding: 0 55px;
+  column-gap: 12px;
+  row-gap: 12px;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 186px);
+}
+
+.tlz-palettelist-items-pag-6 {
+  padding: 0 55px 0 32px;
+  column-gap: 40px;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 200px);
+}
+
+.tlz-palettelist-items-pag > li {
+  scroll-snap-align: center;
+}
+
+.tlz-kebob {
+  justify-content: center;
+  display: flex;
+  height: 14px;
+}
+
+.tlz-bob {
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  background-color: $newsGray25;
+  border-radius: 50%;
+  margin: 0 3px;
+  transition: all 250ms ease;
+
+  &.active {
+    background-color: $black;
+  }
+}

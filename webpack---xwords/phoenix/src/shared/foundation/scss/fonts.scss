@@ -1,0 +1,28 @@
+@import 'shared/scss-helpers/index.scss';
+
+@function createFileName($name, $style, $weight) {
+  @return '/public/fonts/#{$name}/#{$name}-#{$style}-#{$weight}';
+}
+
+@mixin createFontRule($name, $style, $weight) {
+  $fileName: createFileName($name, $style, $weight);
+  @font-face {
+    font-family: 'nyt-#{$name}';
+    src: url('#{$fileName}.woff2') format('woff2'),
+      url('#{$fileName}.woff') format('woff');
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+@mixin createFonts($fontConfig: $fonts) {
+  @each $name, $options in $fontConfig {
+    @each $style, $weights in $options {
+      @each $weight in $weights {
+        @include createFontRule($name, $style, $weight);
+      }
+    }
+  }
+}
+
+@include createFonts($fonts);

@@ -1,0 +1,18 @@
+@use '../../../shared//scss-helpers/fonts.scss';
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: fonts.$franklin;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: fonts.$weight-medium;
+  line-height: 20px;
+  font-variant-numeric: proportional-nums;
+}
+
+.timerBold {
+  font-weight: fonts.$weight-medium-bold;
+}

@@ -1,0 +1,1094 @@
+@use 'sass:math';
+@import 'shared/scss-helpers/index.scss';
+@import 'shared/foundation/scss/hamburgers.scss';
+
+$mobile-toolbar-transition-speed: 270ms;
+$mobile-toolbar-transition-delay: 50ms;
+$nav-title-transition-speed: $mobile-toolbar-transition-speed -
+  ($mobile-toolbar-transition-delay * 0.9);
+$nav-transition-ease: cubic-bezier(
+  0.785,
+  0.135,
+  0.15,
+  0.86
+); // https://matthewlein.com/tools/ceaser
+$logo-ratio: math.div(160, 21);
+$mobile-logo-height: 21px;
+$nav-border-color: rgba(0, 0, 0, 0.2);
+$nav-border-height: 1px;
+
+.pz-header {
+  @include flexbox(column, stretch);
+  position: sticky;
+  top: 0;
+  z-index: $z-index-nav;
+}
+
+// temporary CSS to allow banner to have z-index
+// above print modal on the hub
+.pz-header-under-modal {
+  z-index: unset;
+}
+
+// temporary CSS to layer nav below modal wrapper
+.pz-nav-under-modal {
+  z-index: 1;
+}
+
+.pz-has-messaging {
+  height: $nav-height-desktop + $messaging-banner-height;
+
+  .pz-nav {
+    height: $nav-height-desktop;
+    margin-top: $messaging-banner-height;
+  }
+
+  .pz-nav-drawer {
+    top: $nav-height-desktop + $messaging-banner-height;
+  }
+}
+
+.pz-nav {
+  @include flexbox(row, center, flex-start);
+  height: $nav-height-mobile;
+  position: relative;
+  width: 100%;
+  background: white;
+  padding-right: 16px;
+  overflow: hidden;
+  box-shadow: 0px 1px 0px $nav-border-color;
+
+  &.show-mobile-toolbar {
+    overflow: visible;
+  }
+
+  @include view-width-min(lg) {
+    height: $nav-height-desktop;
+  }
+}
+
+.pz-nav__hamburger-helper {
+  @include flexbox();
+  height: $nav-height-desktop;
+  min-width: $nav-height-desktop;
+  z-index: 1;
+}
+
+.pz-nav__actions {
+  align-items: center;
+}
+
+.pz-nav__title {
+  @include flexbox(row, center, flex-start);
+  flex: 3 2 auto;
+  transition: all $nav-title-transition-speed $nav-transition-ease;
+  transition-delay: $mobile-toolbar-transition-delay;
+  transform: scale(1), translateY(0);
+  opacity: 1;
+  height: 100%;
+
+  &:focus {
+    opacity: 0.6;
+    outline: none;
+  }
+}
+
+.pz-nav__logo {
+  height: 26px;
+  width: 148px;
+}
+
+.pz-nav__button {
+  @include flexbox(column);
+  font-family: 'nyt-franklin';
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.047em;
+  text-transform: uppercase;
+  height: 36px;
+  border: 1px solid $gray6;
+  border-radius: 3px;
+  color: $white;
+  border-color: $black;
+  background-color: $black;
+  margin-left: 8px;
+  padding: 1px 33px 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $gray1;
+  }
+
+  &.white {
+    color: $black;
+    border-color: $black;
+    background-color: $white;
+  }
+
+  &.white:hover {
+    color: $white;
+    background-color: $black;
+  }
+
+  &.gray {
+    color: $black;
+    border-color: $gray3;
+    background-color: $white;
+  }
+
+  &.gray:hover {
+    color: $black;
+    background-color: $gray6;
+  }
+}
+
+// ----------
+// NAV DRAWER
+// ----------
+.pz-nav-drawer {
+  @include flexbox(column, center, space-between);
+  position: fixed;
+  visibility: hidden;
+  top: $nav-height-desktop;
+  bottom: 0;
+  width: 100%;
+  max-width: 350px;
+  background: $white;
+  color: $black;
+  transition: left 0.1s ease 0.14s;
+  box-shadow: 3px 6px 6px rgba(0, 0, 0, 0.25);
+  overflow-y: scroll;
+  padding-top: 7px;
+  border-top: $nav-border-height solid $nav-border-color;
+
+  // Grouping together to share left style
+  &,
+  &.closing {
+    left: calc(-100% - 9px); // -9px (v-offset + blur) for box-shadow
+  }
+
+  // Intermediate class to account for animation timings
+  &.closing {
+    visibility: visible;
+  }
+
+  &.open {
+    left: 0px;
+    visibility: visible;
+  }
+
+  &.logged-out .pz-nav__login {
+    @include flexbox(column);
+  }
+
+  nav {
+    width: 100%;
+    padding-bottom: 16px;
+  }
+
+  hr {
+    width: calc(100% - 32px);
+    margin: 8px 16px;
+    background-color: $gray4;
+    height: 1px;
+    border: none;
+  }
+}
+
+.pz-nav-drawer__heading {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  line-height: 14px;
+  display: block;
+  width: 100%;
+  padding: 9px 16px;
+}
+
+.pz-nav-drawer__link {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border-left: 4px solid transparent;
+  padding: 0 16px 0 12px;
+
+  &::before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+    display: inline-block;
+    background-size: contain;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+  }
+
+  &:nth-child(2) {
+    height: 32px;
+    line-height: 32px;
+  }
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.selected {
+    background-color: #f4f4f4;
+    border-color: $black;
+    text-decoration: none !important;
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.hide {
+    display: none;
+  }
+}
+
+.pz-nav-drawer__new {
+  font-weight: 600;
+  font-size: 12px;
+  color: $newsLightContentAccent;
+  padding-left: 0.75em;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin: auto 0;
+}
+
+.pz-nav-drawer__beta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 50px;
+  height: 15px;
+  border-radius: 13px;
+  background-color: $blue3;
+  color: $white;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  margin-left: 1em;
+}
+
+.daily-crossword {
+  :first-child::before {
+    background-image: url('/public/assets/icons/daily.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $daily-crossword-blue;
+    }
+  }
+}
+
+.mini-crossword {
+  :first-child::before {
+    background-image: url('/public/assets/icons/mini.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $mini-crossword-blue;
+    }
+  }
+}
+
+.spelling-bee {
+  :first-child::before {
+    background-image: url('/public/assets/icons/spelling-bee.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $spelling-bee-gold;
+    }
+  }
+}
+
+.wordle {
+  :first-child::before {
+    background-image: url('/public/assets/icons/wordle.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $wordleGreen;
+    }
+  }
+}
+
+.tiles {
+  :first-child::before {
+    background-image: url('/public/assets/icons/tiles.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $tiles-green;
+    }
+  }
+}
+
+.letter-boxed {
+  :first-child::before {
+    background-image: url('/public/assets/icons/letter-boxed.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $letter-boxed-red;
+    }
+  }
+}
+
+.vertex {
+  :first-child::before {
+    background-image: url('/public/assets/icons/vertex.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $vertex-turquoise;
+    }
+  }
+}
+
+.strands {
+  :first-child::before {
+    background-image: url('/public/assets/icons/strands.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $strands-seafoam;
+    }
+  }
+}
+
+.connections {
+  :first-child::before {
+    background-image: url('/public/assets/icons/connections.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $connections-periwinkle;
+    }
+  }
+}
+
+.hub {
+  :first-child::before {
+    display: none;
+  }
+}
+
+.sudoku {
+  :first-child::before {
+    background-image: url('/public/assets/icons/sudoku.svg');
+  }
+
+  .pz-nav-drawer__link {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      border-color: $sudoku-orange;
+    }
+  }
+}
+
+.archive {
+  :first-child::before {
+    display: none;
+  }
+}
+
+.tips-and-tricks {
+  ::before {
+    display: none;
+  }
+
+  :nth-child(2) {
+    height: 40px;
+    line-height: 15px;
+  }
+}
+
+.ccpa-opt-out,
+.ccpa-california-notice {
+  a {
+    font-size: 12px;
+    color: $gray1;
+
+    &::before {
+      display: none;
+    }
+
+    &.pz-nav-drawer__link:hover {
+      border-color: transparent;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+  }
+
+  span.pz-nav-drawer__link:hover {
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+
+.ccpa-icon {
+  width: 25px;
+  height: 12px;
+  background: url('/public/assets/icons/california-privacy-default.svg')
+    0 0 / cover no-repeat;
+  margin-right: 4px;
+}
+
+.pz-nav-drawer__account {
+  border-top: 1px solid $black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  padding: 16px 0;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: $white;
+  margin-top: 3px;
+}
+
+.pz-nav-drawer__account {
+  .pz-nav-drawer__link {
+    height: 40px;
+    line-height: 40px;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.pz-nav-drawer__account-actions {
+  @include flexbox(row, center, space-evenly);
+  padding: 8px;
+
+  .pz-nav__button {
+    height: 40px;
+    flex: 1;
+    margin: 0 8px;
+    a {
+      background: #000;
+    }
+  }
+}
+
+// --------------
+// MOBILE TOOLBAR
+// --------------
+
+.pz-nav__toolbar {
+  @include flexbox(row, center, flex-end);
+  width: 100%;
+  opacity: 1;
+  position: absolute;
+  transition: all $mobile-toolbar-transition-speed
+    $nav-transition-ease;
+  transform: translateX(100%);
+}
+
+.pz-mobile-nav__toolbar-item {
+  @include flexbox(column);
+  font-size: 18px;
+  color: $black;
+  padding: 0 10px;
+  cursor: pointer;
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+// ----------------------
+// SMALL SCREEN OVERRIDES
+// ----------------------
+@include view-width-max(md) {
+  .pz-header.pz-has-messaging,
+  .pz-header.pz-has-messaging .pz-mobile {
+    .pz-nav-drawer {
+      top: $nav-height-mobile + $messaging-banner-height;
+    }
+  }
+
+  .pz-nav-drawer {
+    display: block;
+    top: $nav-height-mobile;
+  }
+
+  .pz-nav__hamburger-helper {
+    @include flexbox(column);
+    height: $nav-height-mobile;
+    min-width: $nav-height-mobile;
+  }
+
+  .pz-nav__actions {
+    display: none;
+  }
+
+  .pz-nav__title {
+    @include flexbox();
+    position: absolute; // so that content is centered
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin-left: -1px;
+  }
+
+  .pz-nav__logo {
+    height: $mobile-logo-height;
+    width: $mobile-logo-height * $logo-ratio;
+  }
+}
+
+@include view-width-max(xs) {
+  .pz-nav-drawer {
+    max-width: 100%;
+  }
+}
+
+// ----------------
+// MOBILE OVERRIDES
+// ----------------
+@include view-device(mobile) {
+  // This handles the toolbar sliding into the Nav
+  .pz-game-header {
+    .pz-nav.show-mobile-toolbar {
+      .pz-nav__title {
+        opacity: 0;
+        transition-delay: 0ms; // NOTE: Don't remove unit
+        transform: scale(0.95) translateY(-100%);
+      }
+
+      .pz-nav__toolbar {
+        width: 100%;
+        position: relative;
+        transition-delay: $mobile-toolbar-transition-delay;
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+// ----------------
+// HYBRID
+// ----------------
+.pz-hybrid-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: transparent;
+  border: 0;
+  z-index: 100;
+
+  &:before {
+    content: '';
+    background: url('/public/assets/back.svg') center no-repeat;
+    display: block;
+    height: 45px;
+    padding: 13px 20px;
+    opacity: 1;
+  }
+
+  &:active:before {
+    opacity: 0.5;
+  }
+}
+
+.pz-hybrid-back__text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.show-mobile-toolbar {
+  .pz-hybrid-back {
+    z-index: 1;
+  }
+}
+
+.hybrid-hidden {
+  display: none;
+}
+
+// ----------------------
+// Sale Banner
+// ----------------------
+$topSaleBannerHeightMobile: 56px;
+$topSaleBannerHeight: 48px;
+
+$gamesTopSaleBannerHeightXXs: 24px;
+$gamesTopSaleBannerHeightXs: 58px;
+$gamesTopSaleBannerHeightSm: 37px;
+$gamesTopSaleBannerHeightMd: 48px;
+$gamesTopSaleBannerHeightLg: 68px;
+$gamesTopSaleBannerHeightXl: 51px;
+
+@mixin topSaleBannerHeight() {
+  height: 56px;
+
+  @include view-width-min(md) {
+    height: 48px;
+  }
+}
+
+.top-sale-banner {
+  background-color: #fbd300;
+  color: #121212;
+  font-size: 14px;
+  line-height: 20px;
+  width: 100%;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #121212;
+  height: $topSaleBannerHeightMobile;
+  padding: 12px;
+  z-index: 100;
+  position: relative;
+
+  @media (max-width: 374px) {
+    display: none;
+  }
+
+  @include view-width-min(md) {
+    font-size: 16px;
+    line-height: 24px;
+    flex-direction: row;
+    height: $topSaleBannerHeight;
+  }
+
+  @include view-width-min(lg) {
+    font-size: 18px;
+  }
+
+  &__copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    @include view-width-min(md) {
+      flex-direction: row;
+    }
+  }
+
+  &__urgency {
+    font-weight: 600;
+    margin-right: 5px;
+    text-transform: uppercase;
+  }
+
+  &__icon {
+    right: 12px;
+    width: 15px;
+    height: 15px;
+  }
+
+  &__copy {
+    text-align: center;
+  }
+}
+
+// Games All Access Sale banner hotfix:
+// https://jira.nyt.net/browse/SCONV-1177
+// https://nytimes.slack.com/archives/C8UJKFB1T/p1677508157737219
+.pz-mobile.pz-sale-banner #spelling-bee-container .pz-game-field,
+.pz-mobile.pz-games-sale-banner
+  #spelling-bee-container
+  .pz-game-field {
+  top: 96px;
+}
+
+// Repositioned drawer to account for sale banner
+
+body:not(.pz-ada) .top-sale-banner-drawer {
+  height: auto;
+  top: $nav-height-mobile + $topSaleBannerHeightMobile;
+
+  @include view-width-min(md) {
+    top: $nav-height-mobile + $topSaleBannerHeight;
+  }
+
+  @include view-width-min(lg) {
+    top: $nav-height-mobile + $gamesTopSaleBannerHeightLg;
+  }
+}
+
+.hide-on-xs {
+  @media (max-width: 375px) {
+    display: none;
+  }
+  @media (min-width: 376px) {
+    display: inline;
+  }
+}
+
+.show-on-xs {
+  @media (min-width: 375px) {
+    display: none;
+  }
+  @media (max-width: 376px) {
+    display: inline;
+  }
+}
+
+//Anons & Regis
+body.pz-games-sale-banner:not(.pz-ada):not(.pz-sub) {
+  .top-sale-banner {
+    display: none;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    height: $gamesTopSaleBannerHeightSm;
+    padding: 8px 0;
+    justify-content: center;
+    overflow: hidden;
+
+    @media (max-width: 375px) {
+      display: flex;
+    }
+    @media (max-width: 360px) {
+      height: $gamesTopSaleBannerHeightXXs;
+    }
+
+    @media (min-width: 361px) {
+      height: $gamesTopSaleBannerHeightXs;
+    }
+
+    @include view-width-min(midsm) {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    @media (min-width: 376px) and (max-width: 414px) {
+      height: $gamesTopSaleBannerHeightXs;
+    }
+
+    @include view-width-min(md) {
+      height: $gamesTopSaleBannerHeightMd;
+      padding: 8px 27px 8px 11px;
+    }
+
+    @include view-width-min(lg) {
+      height: $gamesTopSaleBannerHeightMd;
+    }
+
+    @include view-width-min(xl) {
+      font-size: 18px;
+      line-height: 27px;
+      height: $gamesTopSaleBannerHeightXl;
+    }
+
+    &.black {
+      background-color: #121212;
+
+      .top-sale-banner__urgency,
+      span {
+        color: #ffffff;
+      }
+    }
+
+    &.light_yellow {
+      background-color: #fff082;
+    }
+
+    &.dark_yellow {
+      background-color: #fbd300;
+    }
+  }
+
+  .top-sale-banner__copy {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: unset;
+  }
+
+  .top-sale-banner__iconwrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    @media (max-width: 320px) {
+      width: 0;
+    }
+    @media (min-width: 376px) and (max-width: 414px) {
+      width: 0;
+    }
+    @media (min-width: 768px) {
+      margin-left: 5px;
+    }
+  }
+
+  .top-sale-banner__icon {
+    @media (max-width: 360px) {
+      position: absolute;
+      left: 10px;
+    }
+    @media (min-width: 376px) and (max-width: 414px) {
+      position: absolute;
+      left: 10px;
+    }
+  }
+
+  // Adjusts the top offset on Vertex welcome screens to account for the Games sale banner
+  .pz-concierge-sale-banner {
+    top: $gamesTopSaleBannerHeightSm;
+
+    @media (max-width: 360px) {
+      top: $gamesTopSaleBannerHeightXXs;
+    }
+
+    @media (min-width: 361px) and (max-width: 414px) {
+      top: $gamesTopSaleBannerHeightXs;
+    }
+
+    @include view-width-min(md) {
+      top: $gamesTopSaleBannerHeightMd;
+    }
+
+    @include view-width-min(lg) {
+      top: $gamesTopSaleBannerHeightMd;
+    }
+
+    @include view-width-min(xl) {
+      top: $gamesTopSaleBannerHeightXl;
+    }
+  }
+
+  // Brings the Games sale banner to the front
+  .pz-game-header {
+    z-index: 201;
+  }
+
+  // Ensures button sits above sale banner/header
+  .pz-hybrid-back {
+    z-index: 202;
+  }
+
+  // Ensures modals sit above sale banner/header
+  .modal-system-container,
+  .sb-modal-scrim,
+  #portal-game-modals {
+    z-index: 203;
+  }
+
+  // Repositioned drawer to account for sale banner
+  .pz-nav-drawer {
+    height: auto;
+    top: $nav-height-mobile + $gamesTopSaleBannerHeightSm;
+
+    @media (max-width: 360px) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightXXs;
+    }
+
+    @media (min-width: 361px) and (max-width: 414px) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightXs;
+    }
+
+    @include view-width-min(md) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightMd;
+    }
+
+    @include view-width-min(lg) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightMd;
+    }
+
+    @include view-width-min(xl) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightXl;
+    }
+  }
+}
+
+// Move hybrid back button down on games-ios
+.pz-games-app.pz-games-sale-banner:not(.pz-sub) .pz-hybrid-back {
+  top: $gamesTopSaleBannerHeightSm;
+
+  @media (max-width: 360px) {
+    top: $gamesTopSaleBannerHeightXXs;
+  }
+
+  @media (min-width: 361px) and (max-width: 414px) {
+    top: $gamesTopSaleBannerHeightXs;
+  }
+
+  @include view-width-min(md) {
+    top: $gamesTopSaleBannerHeightMd;
+  }
+
+  @include view-width-min(lg) {
+    top: $gamesTopSaleBannerHeightMd;
+  }
+
+  @include view-width-min(xl) {
+    top: $gamesTopSaleBannerHeightXl;
+  }
+}
+
+.pz-desktop.pz-games-sale-banner:not(.pz-ada) .pz-nav-drawer {
+  @include view-width-min(lg) {
+    top: $nav-height-desktop + $gamesTopSaleBannerHeightMd;
+  }
+  @include view-width-min(xl) {
+    top: $nav-height-desktop + $gamesTopSaleBannerHeightXl;
+  }
+}
+
+body:not(.pz-games-sale-nav) {
+  .pz-nav__button.subscribe {
+    display: none;
+  }
+}
+
+.text-transform-none {
+  text-transform: none;
+}
+
+.pz-games-sale-nav:not(.pz-ada) {
+  .pz-nav__button.default {
+    display: none;
+  }
+  //Home Bar1
+  .pz-nav__actions .pz-nav__button.subscribe {
+    padding: 1px 12px 0;
+    letter-spacing: 0.4px;
+  }
+
+  //Hamburger Menu CTA
+  .pz-nav-drawer__account-actions {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .pz-nav-drawer {
+    .pz-nav__button {
+      padding: 1px 10px 0;
+      margin: 0 4px;
+      @media (max-width: 340px) {
+        padding: 1px 5px 0;
+      }
+    }
+    .pz-nav__button.subscribe {
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      @media (max-width: 340px) {
+        letter-spacing: -0.3px;
+      }
+    }
+  }
+}
+
+//Game Sale Upgrade: Adjust top banner height for upgrade users
+body.pz-sub.pz-games-sale-banner:not(.pz-ada),
+body.pz-digi.pz-games-sale-banner:not(.pz-ada),
+body.pz-games-sale-sub.pz-games-sale-banner:not(.pz-ada) {
+  .top-sale-banner {
+    @media (max-width: 767px) {
+      height: $gamesTopSaleBannerHeightXs !important;
+    }
+
+    @media (max-width: 360px) {
+      height: $gamesTopSaleBannerHeightXXs !important;
+    }
+  }
+
+  .top-sale-banner__copy {
+    max-width: unset;
+    flex-direction: row;
+  }
+
+  .top-sale-banner__iconwrapper {
+    @media (max-width: 767px) {
+      width: 0;
+    }
+  }
+  .top-sale-banner__icon {
+    @media (max-width: 767px) {
+      position: absolute;
+      left: 10px;
+    }
+  }
+
+  .pz-nav-drawer {
+    height: auto;
+    @media (max-width: 767px) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightXXs !important;
+    }
+    @media (max-width: 360px) {
+      top: $nav-height-mobile + $gamesTopSaleBannerHeightXXs !important;
+    }
+  }
+}
+
+body.pz-sub.pz-games-sale-nav:not(.pz-ada),
+body.pz-digi.pz-games-sale-nav:not(.pz-ada),
+body.pz-games-sale-sub.pz-games-sale-nav:not(.pz-ada) {
+  //Home Bar1
+  .pz-nav__actions .subscribe {
+    padding: 1px 14px 0;
+  }
+
+  //Hamburger Menu CTA
+  .pz-nav-drawer__account-actions {
+    padding: 8px;
+  }
+
+  .pz-nav-drawer {
+    .pz-nav__button {
+      padding: 1px 14px 0;
+      margin: 0 8px;
+    }
+    .pz-nav__button.subscribe {
+      letter-spacing: unset;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@import './../../shared/scss-helpers/colors.scss';
+@import './../../shared/scss-helpers/mixins.scss';
+@import '../../shared/scss-helpers/fonts.scss';
+@import './../shared/Button/button.scss';
+@import './../shared/ModalSystem/Modals.scss';
+@import './../shared/ModalSystem/ModalWrapper.scss';
+@import './../../shared/foundation-game/intercept.scss';
+
+// TODO: revist. Custom styling for Congrats modal's
+//  CTA Spelling Bee button icon
+.pz-icon.pz-icon-spelling-bee-wings.pz-icon-right {
+  min-width: 16px;
+  min-height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+// TODO: revist. Custom styling for Congrats modal to accommodate
+// buttons aligning in a row instead of being stacked
+.xwd__modal--body.modal-rules-body.conn__modal.animate-opening {
+  padding: 36px 0 0;
+}
+
+.sequence-animation > * {
+  opacity: 100;
+}
+
+.pz-moment__description {
+  margin: 8px auto 0 auto;
+  width: 200px;
+  align-self: center;
+  font: 20px karnakMedium;
+}
+
+// when focused via keyboard (or other device that supports focus) add blue outline
+.pz-moment__button-group {
+  button,
+  a {
+    &:focus-visible {
+      outline: 2px solid $outlineBlue;
+    }
+  }
+}
+
+.xwd__modal--body:focus-visible {
+  outline: 2px solid $outlineBlue;
+}
+
+@media screen and (min-width: 768px) {
+  .pz-moment__description {
+    width: 100%;
+  }
+}
+
+.pz-moment__info-date {
+  color: #000;
+  margin-top: 15px;
+  font-weight: $weight-bold;
+  font-size: 18px;
+}
+
+/* landscape warning icon */
+.pz-intercept::after {
+  background-size: 200px;
+}
+
+/* hybrid nav styling */
+@include nav;
+.pz-hybrid {
+  .pz-nav__title,
+  .pz-game-title-bar,
+  .pz-game-toolbar {
+    display: none;
+  }
+
+  * {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+// TODO: revist. Prevent hardcoding of colors
+.pz-newsreader {
+  background-color: #ffffff;
+}
+
+@include phone {
+  .pz-newsreader {
+    @media (min-height: 590px) {
+      overflow-y: hidden;
+    }
+  }
+}

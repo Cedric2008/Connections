@@ -1,0 +1,30 @@
+.button {
+  font-size: 1.125em;
+  line-height: 45px;
+  display: inline-block;
+  padding: 0 10px;
+  border: none;
+  background: none;
+
+  &:hover {
+    cursor: pointer;
+    background: revert;
+  }
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  background-size: contain;
+  display: inline-block;
+}
+
+.helpIcon {
+  background-image: url('/public/assets/icons/help.svg');
+}
+
+.settingsIcon {
+  background-image: url('/public/assets/icons/settings.svg');
+}

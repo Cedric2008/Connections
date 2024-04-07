@@ -1,0 +1,162 @@
+@import '../../../shared/scss-helpers/index.scss';
+
+.banner {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $white;
+  color: $black;
+  z-index: 50; // over page but under nav drawer, adapted from messagingbanner.scss
+  border-top: 1px solid $black;
+
+  button.iconButton {
+    order: 3;
+    background: $white;
+    border: 0;
+    cursor: pointer;
+    margin: auto;
+  }
+
+  // contains icon, title, and message
+  .bannerInformation {
+    display: flex;
+    flex: 2;
+    align-items: center;
+    font-family: 'nyt-franklin';
+    @include font-size(16);
+
+    // icon is set to 26x26 with default layout
+    i {
+      min-height: 35px;
+      min-width: 35px;
+    }
+  }
+
+  // with the message layout, icon is aligned to top
+  .bannerInformation.bannerMessageIcon {
+    align-items: flex-start;
+
+    // icon is set back to 20x20 to accomodate for the title
+    i {
+      min-height: 20px;
+      min-width: 20px;
+    }
+  }
+
+  .bannerBody {
+    // banner body should take up all available space
+    flex: 1;
+    margin-left: 0.5rem;
+
+    // this ensures click area is tall enough and is
+    // centered
+    .clickArea {
+      height: 26px;
+      padding: 4px 0;
+    }
+
+    h3 {
+      @include font-size(14);
+      font-weight: $weight-bold;
+      margin: 0;
+
+      // with the message layout, title is uppercased
+      &.bannerMessageTitle {
+        text-transform: uppercase;
+      }
+    }
+
+    p {
+      @include font-size(16);
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+// slide up and delay - mainly in order to pause between alternations
+// see more here https://css-tricks.com/css-keyframe-animation-delay-iterations/
+@keyframes slideupdelay {
+  from {
+    bottom: -100%;
+  }
+
+  11% {
+    bottom: 0%;
+  }
+
+  to {
+    bottom: 0%;
+  }
+}
+
+/**Styles for GAMES_wordleAppDownloadCTACopy_0523 Test **/
+.multiIconBannerTest {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $white;
+  color: $black;
+  z-index: 50;
+  border-top: 1px solid $black;
+
+  &.relative {
+    position: relative;
+  }
+
+  button.iconButtonTest {
+    background: $white;
+    border: 0;
+    cursor: pointer;
+    i {
+      margin-right: 0;
+    }
+    padding: 0;
+  }
+
+  .bannerInformationTest {
+    align-items: center;
+    font-family: 'nyt-franklin';
+    margin: auto;
+    @include font-size(16);
+    text-align: center;
+
+    .iconHolder {
+      text-align: center;
+      margin: auto;
+      background: url('/public/assets/icons/inline-games-all.svg')
+        no-repeat center/contain;
+      height: 30px;
+    }
+    i {
+      min-height: 25px;
+      min-width: 25px;
+    }
+  }
+
+  .bannerBodyTest {
+    flex: 1;
+
+    h3 {
+      font-size: 0.85rem;
+      font-weight: $weight-bold;
+      margin: 0;
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

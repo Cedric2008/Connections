@@ -1,0 +1,11 @@
+@import '../../../../shared/scss-helpers/mixins.scss';
+
+.shortzContainer {
+  margin: #{$breathing-room} auto;
+  display: flex;
+  justify-content: center;
+  // gap from mixin variables
+  gap: #{$breathing-room};
+  margin-left: 0;
+  margin-right: 0;
+}

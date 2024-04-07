@@ -1,0 +1,1 @@
+chrome-extension://gjfpmkejnolcfklaaddjnckanhhgegla/permissionProxyDisabled.bundle.js

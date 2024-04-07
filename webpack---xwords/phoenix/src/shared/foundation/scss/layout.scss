@@ -1,0 +1,181 @@
+@import 'shared/scss-helpers/index.scss';
+
+// ---------
+// BOX MODEL
+// ---------
+// apply a natural box layout model to all elements,
+// but allowing components to change
+// @see https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+// ----------------
+// MOBILE TEXT SIZE
+// ----------------
+// To prevent mobile browsers
+// from scalling text when in landscape
+// we set their adjustment explicitly
+// @see https://blog.55minutes.com/2012/04/iphone-text-resizing/
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+// -------------
+// STICKY FOOTER
+// -------------
+// flexbox-based stick footer
+// @see: https://css-tricks.com/couple-takes-sticky-footer/
+//
+// Please note,
+// this is easy to break in ie11,
+// so this implementation is based on https://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/
+.pz-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  overflow-x: hidden;
+}
+
+// Not declaring height in web so Games Hub can fully scroll with sticky header visible
+.pz-newsreader,
+.pz-games-app {
+  height: 100vh;
+}
+
+.pz-header,
+.pz-footer {
+  flex-shrink: 0;
+}
+.pz-content {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+// --------------
+// MICRO CLEARFIX
+// --------------
+// @see http://nicolasgallagher.com/micro-clearfix-hack/
+.cf:before,
+.cf:after {
+  content: ' '; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+
+// --------------
+// LAYOUT HELPERS
+// --------------
+// These are helpful utilities
+// simply to prevent the proliferation
+// of extra prefixed decalrations and other bloat
+.hidden {
+  display: none;
+}
+
+.pz-flex-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+// -------------
+// FOOTER SAFETY
+// -------------
+// ensures footer does not
+// mess with layout when empty
+.pz-footer {
+  min-height: 40px;
+}
+
+// ----------------------
+// MAKE FONTS LESS CHUNKY
+// ----------------------
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ----------------------
+// PLAYTAB
+// ----------------------
+.pz-play-tab.pz-mobile .pz-page {
+  overflow: hidden;
+}
+
+// ----------------------
+// CACHE SAFE RULES
+// ----------------------
+// The following CSS rules are responsible for hiding and showing elements on pages cached
+// in Fastly. They allow us to target elements by device, usertype, and purr directive.
+
+// Device rules hide elements for certain platforms
+.pz-loading .pz-hide-loading,
+.pz-mobile .pz-hide-mobile,
+.pz-mobile-ios .pz-hide-ios,
+.pz-mobile-android .pz-hide-android,
+.pz-hybrid .pz-hide-hybrid,
+.pz-desktop .pz-hide-desktop,
+.pz-play-tab .pz-hide-play-tab,
+.pz-newsreader.pz-ios .pz-hide-newsreader-ios,
+.pz-newsreader.pz-android .pz-hide-newsreader-android,
+.pz-newsreader .pz-hide-newsreader,
+.pz-games-app-ios .pz-hide-games-app-ios,
+.pz-games-app-android .pz-hide-games-app-android,
+.pz-games-app .pz-hide-games-app,
+body:not(.pz-hybrid) .pz-hide-web {
+  display: none;
+}
+
+body.pz-newsreader-ios-hybrid .pz-hide-newsreader-ios-hybrid {
+  display: none;
+}
+
+body:not(.pz-web) .pz-web-only,
+body:not(.pz-desktop) .pz-desktop-only {
+  display: none;
+}
+
+// User rules hide elements based on user type
+.pz-anon .pz-hide-anon,
+.pz-regi .pz-hide-regi,
+.pz-digi .pz-hide-digi,
+.pz-ada .pz-hide-ada,
+.pz-sub .pz-hide-sub {
+  display: none;
+}
+
+// PURR rules hide navigation and footer elements based on directives
+body:not(.pz-purr-datasaleoptout-show) .ccpa-opt-out,
+body:not(.pz-purr-californianotices-show) .ccpa-california-notice,
+.pz-purr-datasaleoptout-hide.pz-purr-californianotices-hide
+  .pz-nav-ccpa {
+  display: none;
+}
+
+// Hide ad boxes if purr directive is no ads
+.pz-purr-adconfiguration-adluce-socrates .pz-ad-box {
+  display: none;
+}
+
+body.pz-purr-fidestcf-show .fides-tcf-manage {
+  display: inherit;
+}
+
+// hide skip nav portal if empty, extra safe measure in case element inherits any styles from browser
+#portal-skip-nav:empty {
+  display: none;
+}

@@ -1,0 +1,27 @@
+@import '../variables.scss';
+
+.solvedCategoriesContainer {
+  width: calc(3 * #{$card-gap} + 4 * #{$card-width-large});
+  height: calc(3 * #{$card-gap} + 4 * #{$card-height-large});
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  gap: #{$card-gap};
+  grid-template-rows: repeat(4, 1fr);
+  position: absolute;
+  grid-template-columns: 1fr;
+  top: 0;
+}
+
+@media (max-width: $narrow-design-width) {
+  .solvedCategoriesContainer {
+    margin: 20px auto;
+    width: calc(3 * #{$card-gap} + 4 * #{$card-height-width-small});
+    height: calc(3 * #{$card-gap} + 4 * #{$card-height-width-small});
+    gap: #{$card-gap};
+  }
+
+  .solvedCategoriesContainer {
+    margin: 0 auto;
+  }
+}

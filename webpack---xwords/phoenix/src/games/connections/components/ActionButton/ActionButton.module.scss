@@ -1,0 +1,60 @@
+@use '../../../../shared/scss-helpers/fonts.scss';
+@import '../../../../shared/scss-helpers/colors.scss';
+
+.button {
+  font-family: fonts.$franklin;
+  font-size: 16px;
+  font-weight: fonts.$weight-medium-bold;
+  display: flex;
+  width: fit-content;
+  min-width: 5.5em;
+  height: 3em;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  max-width: 80vw;
+  border-radius: 32px;
+  line-height: 1.5em;
+  cursor: pointer;
+  border: 1px solid;
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $outlineBlue;
+  }
+}
+
+.xSmall {
+  min-width: 5.5em;
+}
+
+.small {
+  min-width: 7em;
+}
+
+.medium {
+  min-width: 7.5em;
+}
+
+.large {
+  min-width: 9em;
+}
+
+.xLarge {
+  min-width: 10em;
+}
+
+@media (max-width: 300px) {
+  // Not adding xSmall here as it is a matching size.
+  // Not xLarge here as the View Results button always
+  // has the space to be 10em on all surfaces.
+  .small,
+  .medium,
+  .large {
+    min-width: 5.5em;
+  }
+}

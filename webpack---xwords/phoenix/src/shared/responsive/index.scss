@@ -1,0 +1,51 @@
+@import 'shared/scss-helpers/index.scss';
+
+// This css
+// provides css transitions that allow our js to sync
+// with our responsive css
+// Inspired by: https://paulrhayes.com/use-css-transitions-to-link-media-queries-and-javascript/
+// Related files: scripts/responsive, views/partials/responsiveHook
+
+#ratio-hook,
+#width-hook {
+  position: absolute;
+  top: -100em;
+  transition: width 0.001ms;
+}
+
+@include view-width-only(xs) {
+  #width-hook {
+    width: 0px;
+  }
+}
+@include view-width-only(sm) {
+  #width-hook {
+    width: 1px;
+  }
+}
+@include view-width-only(md) {
+  #width-hook {
+    width: 2px;
+  }
+}
+@include view-width-only(lg) {
+  #width-hook {
+    width: 3px;
+  }
+}
+@include view-width-only(xl) {
+  #width-hook {
+    width: 4px;
+  }
+}
+
+@include view-ratio(portrait) {
+  #ratio-hook {
+    width: 0px;
+  }
+}
+@include view-ratio(landscape) {
+  #ratio-hook {
+    width: 1px;
+  }
+}

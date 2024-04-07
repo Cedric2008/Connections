@@ -1,0 +1,143 @@
+@import 'shared/scss-helpers/index.scss';
+
+.messaging-banner {
+  @include flexbox(row, center, center);
+  position: fixed;
+  padding: 12px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $gray6;
+  color: $black;
+  z-index: 50; // over page but under nav drawer
+
+  @media screen and (min-width: 340px) {
+    padding: 15px 30px 15px 20px;
+  }
+
+  &.slide-down {
+    animation: slideDown ease-in-out 8s;
+    transform: translateY(100%);
+  }
+
+  &.mobile-column {
+    justify-content: flex-start;
+
+    @include view-width-min(md) {
+      justify-content: center;
+    }
+  }
+
+  &.position-top {
+    @include flexbox(row, flex-start, flex-start);
+    bottom: initial;
+    position: fixed;
+    padding: 12px;
+    border-bottom: solid 1px $gray4;
+
+    @include view-width-min(md) {
+      @include flexbox($align: center, $justify: flex-start);
+    }
+  }
+
+  &.headline {
+    @extend .position-top;
+
+    @include view-width-min(md) {
+      @include flexbox($align: flex-start, $justify: flex-start);
+    }
+
+    .pz-icon {
+      margin-right: 8px;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &.show-above-modal {
+    z-index: 101;
+  }
+
+  &.centered {
+    justify-content: center;
+  }
+
+  .pz-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    margin-right: 5px;
+
+    @media screen and (min-width: 340px) {
+      display: inline-block;
+    }
+  }
+
+  .pz-icon-alert {
+    background-image: url('/public/assets/icon-alert.svg');
+  }
+}
+
+.messaging-banner__left {
+  @include flexbox($align: center);
+  height: 100%;
+
+  .mobile-column & {
+    position: relative;
+    align-self: flex-start;
+    top: -2px;
+
+    @include view-width-min(md) {
+      top: 0;
+    }
+  }
+}
+
+.messaging-banner__right {
+  font-family: 'nyt-franklin';
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.messaging-banner__headline {
+  font-weight: 700;
+  margin-right: 5px;
+
+  .headline & {
+    display: block;
+  }
+}
+
+.messaging-banner__featured-link {
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 700;
+  text-decoration: underline;
+  font-family: 'nyt-karnakcondensed';
+}
+
+.messaging-banner__action {
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+
+  .headline & {
+    font-weight: 500;
+  }
+
+  .mobile-column & {
+    display: block;
+
+    @include view-width-min(md) {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+.pz-footer,
+.pz-header,
+.pz-content,
+.wordle-app-header,
+#wordle-app-game {
+  &.dimmed {
+    opacity: 0.6;
+  }
+}
+
+.ccpa-snackbar {
+  margin: auto;
+  padding: 10px 20px;
+
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  position: fixed;
+
+  background: #333333;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  z-index: 99999;
+}
+
+.ccpa-snackbar__header {
+  font-family: 'nyt-franklin';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  color: #ffffff;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+.ccpa-snackbar__description {
+  @extend .ccpa-snackbar__header;
+  color: #a4a4a4;
+}
+
+.ccpa-snackbar__container {
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.147368px;
+  color: #ffffff;
+}
+
+.ccpa-snackbar.error {
+  @extend .ccpa-snackbar__header;
+}
+
+@include view-width-min(md) {
+  .ccpa-snackbar {
+    right: 50px;
+    left: auto;
+    bottom: 50px;
+    width: 480px;
+  }
+}

@@ -1,0 +1,44 @@
+@import '../../../shared/scss-helpers/index.scss';
+
+.pill {
+  font-family: $franklin;
+  font-weight: $weight-bold;
+  font-size: 0.75rem;
+  background: $outlineBlue;
+  color: $white;
+  height: 24px;
+  display: flex;
+  text-transform: uppercase;
+  border: 1px solid $white;
+  border-radius: 9999px;
+  line-height: 1;
+  letter-spacing: 0.05rem;
+  white-space: nowrap;
+  padding: 6px 8.5px;
+
+  // default pill does not assume absolute positioning
+  &.default {
+    position: static;
+  }
+
+  // absolute pill positioning assumes targeted wrapping element is positioned relative
+  &.top-right-outside {
+    position: absolute;
+    top: -1.2em;
+    right: -1.2em;
+  }
+
+  &.top-right-edge {
+    position: absolute;
+    top: -0.75em;
+    right: 0;
+  }
+
+  // icon generally sized to reflect font-size
+  i {
+    min-width: 0.75em;
+    min-height: 0.75em;
+    margin-right: 0.5em;
+    background-position: center;
+  }
+}

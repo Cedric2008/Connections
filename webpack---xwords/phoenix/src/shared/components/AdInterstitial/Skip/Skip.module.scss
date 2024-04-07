@@ -1,0 +1,73 @@
+@import '../../../scss-helpers/colors.scss';
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  animation: #{$str};
+}
+
+@include keyframes(fade) {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@mixin buttonFocus {
+  outline: 2px solid $outlineBlue;
+  outline-offset: -2px;
+}
+
+.fadeInContainer {
+  @include animation('fade 0.75s 1');
+  width: 100%;
+  background-color: #e3e3e1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.skipInfo {
+  font-family: 'nyt-franklin';
+  font-weight: 700;
+  display: flex;
+  align-self: flex-end;
+  align-items: center;
+  padding-top: 12px;
+  padding-right: 20px;
+  padding-bottom: 14px;
+  z-index: 99;
+  & svg {
+    margin-left: 0.5rem;
+  }
+  max-height: var(--inter-ad-skip-button-height);
+
+  &:focus-visible {
+    @include buttonFocus;
+  }
+}
+
+.skipButton {
+  border: none;
+  background-color: inherit;
+  color: inherit;
+
+  &:focus-visible {
+    @include buttonFocus;
+  }
+}
+
+.skipButtonPlaceholder {
+  height: 52px;
+}

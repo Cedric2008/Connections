@@ -1,0 +1,96 @@
+button.button-primary {
+  font-weight: $weight-medium-bold;
+  font-family: 'nyt-franklin';
+  background: $black;
+  color: $white;
+  text-transform: capitalize;
+  border: 1px solid $black;
+  border-radius: 9999px;
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: 0.05rem;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+
+  &:hover:enabled {
+    background: rgba(18, 18, 18, 0.85);
+  }
+  &:active {
+    background: rgba(18, 18, 18, 0.9);
+  }
+  &:focus:enabled {
+    border: 1px solid $blue4;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+    border: 1px solid transparent;
+  }
+}
+
+button.button-secondary {
+  @extend .button-primary;
+  background: $white;
+  color: $black;
+  border: 1px solid $black;
+
+  &:hover:enabled {
+    background: $gray6;
+    color: $black;
+  }
+  &:active {
+    background: $gray5;
+  }
+  &:disabled {
+    background: $white;
+  }
+}
+
+button.button-card-primary {
+  @extend .button-primary;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+
+  &:hover:enabled {
+    background-color: $purple1;
+    border: 2px solid transparent;
+  }
+  &:active {
+    background-color: $purple1;
+    border: 2px solid $black;
+  }
+  &:focus:enabled {
+    border: 2px solid $blue4;
+  }
+  &:disabled {
+    border: 2px solid transparent;
+  }
+}
+
+button.button-card-secondary {
+  @extend .button-primary;
+  text-transform: uppercase;
+  background: $white;
+  color: $black;
+  border: 2px solid $black;
+
+  &:hover:enabled {
+    background-color: $white;
+    color: $purple1;
+    border: 2px solid $purple1;
+  }
+  &:active {
+    background-color: $white;
+    color: $purple1;
+    border: 2px solid $black;
+  }
+  &:focus:enabled {
+    border: 2px solid $blue4;
+  }
+  &:disabled {
+    background: $white;
+    border: 2px solid $black;
+  }
+}

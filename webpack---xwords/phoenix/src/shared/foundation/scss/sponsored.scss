@@ -1,0 +1,35 @@
+.pz-sponsored {
+  height: 48px;
+  height: 48px;
+  font-size: 11px;
+  color: $gray2;
+
+  @include flexbox(row, center, flex-end);
+}
+
+.pz-sponsored__link {
+  padding-right: 18px;
+  padding-left: 12px;
+}
+
+.pz-sponsored__image {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 48px;
+  width: 138px;
+}
+
+@include view-width-max(sm) {
+  .pz-sponsored {
+    display: none;
+  }
+}
+
+// Note: because of how we handle new games on mobile
+// this must not render on mobile devices
+@include view-device(mobile) {
+  .pz-sponsored {
+    display: none;
+  }
+}

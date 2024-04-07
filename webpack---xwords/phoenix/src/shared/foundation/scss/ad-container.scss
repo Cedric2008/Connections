@@ -1,0 +1,42 @@
+.ad-container {
+  padding: 1.5em 0;
+  & .inner-ad-container {
+    font: $weight-medium 1em 'nyt-franklin';
+    letter-spacing: 1px;
+    font-size: 0.75em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #f8f8f8;
+    padding: 1.33em 0 2.67em;
+
+    &:empty {
+      min-height: 270px;
+    }
+
+    &:empty::before {
+      content: 'advertisement';
+      color: #424242;
+      border: 1px solid #ccc;
+      padding: 0.75em 1em;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    &:not(:empty)::before {
+      content: 'advertisement';
+      color: #5a5a5a;
+      display: block;
+      margin: 0 0.5em 1em;
+      text-transform: uppercase;
+    }
+
+    & > div {
+      margin: auto 0;
+    }
+  }
+}

@@ -1,0 +1,351 @@
+@use "sass:math";
+
+$modal-outer-margin: 15px;
+$modal-outer-padding: 50px;
+
+$modal-inner-margin: 25px;
+$modal-inner-margin-xs: 20px;
+
+$modal-button-width: 142px;
+
+$modal-width-narrow: 350px;
+$modal-width-standard: 450px;
+
+.pzm-system {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: none;
+
+  &.pzm-active {
+    display: block;
+  }
+}
+
+.pzm-modals-wrapper {
+  @include flexbox($direction: column);
+  position: sticky;
+  #set-game-container & {
+    // On Edge 16, sticky positioning on the modal wrapper causes the content's
+    // click targets to be offset about 2cm beneath their visual representation,
+    // which is problematic for the colorblind checkbox
+    position: static;
+  }
+  top: 0;
+  height: 100vh;
+  width: 100%; // dont use vw here because it does not factor in the scroll bar
+  background: rgba(255, 255, 255, 0.85);
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.pzm-modal {
+  background: #fff;
+  border: 1px solid $gray5;
+  border-radius: 7px;
+  box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.08);
+  display: none;
+  width: $modal-width-standard;
+  max-height: calc(100% - #{$modal-outer-margin * 2});
+  max-width: calc(100% - #{$modal-outer-margin * 2});
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  text-align: center;
+
+  &.left-aligned {
+    text-align: left;
+  }
+
+  &.pzm-active {
+    display: block;
+  }
+
+  &.narrow {
+    width: $modal-width-narrow;
+  }
+}
+
+.pzm-modal-content {
+  padding: $modal-outer-padding;
+}
+
+.pzm-modal-ex {
+  font: 35px nyt-franklin;
+  cursor: pointer;
+  color: $gray2;
+  font-weight: lighter;
+  position: absolute;
+  padding: 10px;
+  top: 0;
+  right: 10px;
+}
+
+.pzm-modal__title {
+  font: 700 38px nyt-karnak;
+  .left-aligned & {
+    align-self: flex-start;
+    font-size: 24px;
+  }
+}
+
+.pzm-modal__content {
+  font: 500 18px nyt-franklin;
+  margin: $modal-inner-margin 0 29px;
+
+  @include view-width-max(xs) {
+    margin-top: $modal-inner-margin-xs;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  .left-aligned & {
+    font-size: 15px;
+    @include view-width-max(xs) {
+      font-size: 14px;
+    }
+
+    .pzm-modal__content-list {
+      line-height: 1.4;
+      list-style-type: disc;
+      margin-left: 20px;
+      width: calc(100% - 20px); // For IE11
+    }
+  }
+
+  em {
+    font-weight: 700;
+  }
+}
+
+.pzm-submodal > div {
+  display: none;
+}
+
+.pzm-submodal > div.pzm-active {
+  display: block;
+}
+
+@mixin evenly-spaced-sections(
+  $gutter,
+  $section-class: pzm-modal__section
+) {
+  .#{$section-class} {
+    margin-bottom: math.div($gutter, 2);
+    + .#{$section-class} {
+      margin-top: math.div($gutter, 2);
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@include evenly-spaced-sections($modal-inner-margin);
+@include view-width-max(xs) {
+  @include evenly-spaced-sections($modal-inner-margin-xs);
+}
+
+.pzm-modal__buttons {
+  @include flexbox(row, center, space-between, wrap);
+  width: 100%;
+}
+
+@mixin button-states($bg) {
+  &:hover {
+    background-color: darken($bg, 5);
+  }
+  &:active {
+    background-color: darken($bg, 10);
+  }
+}
+
+.pzm-modal__button {
+  white-space: nowrap;
+  @include flexbox(column);
+  border: 1px solid $gray4;
+  border-radius: 30px;
+  cursor: pointer;
+  font: 500 18px nyt-franklin;
+  min-width: $modal-button-width;
+  color: $gray1;
+  background: #fff;
+  padding: 15px;
+  flex-grow: 1;
+  transition: background-color 100ms;
+
+  @include button-states(#fff);
+
+  &.primary {
+    border: none;
+    background: $blue3;
+    color: #fff;
+    font-weight: 700;
+    @include button-states($blue3);
+  }
+
+  &.black {
+    border: none;
+    background: #000;
+    color: #fff;
+    font-weight: 700;
+    @include button-states(#000);
+  }
+
+  & + .pzm-modal__button {
+    margin-left: 15px;
+  }
+}
+
+a.pz-modal__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin modal-image($height, $width, $filename) {
+  background-image: url('/public/assets/#{$filename}');
+  height: #{$height}px;
+  width: #{$width}px;
+}
+
+.pzm-modal__image {
+  margin: 0 auto 25px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  &.blue-star {
+    @include modal-image(80, 80, 'blue-star-0.svg');
+  }
+}
+
+// NOTE:
+// we need to think through a way to handle when the nav is sticky
+// and how tall it is
+
+@mixin whenStickyNav {
+  .pzm-content {
+    top: $nav-height-mobile;
+    height: calc(100vh - #{$nav-height-mobile});
+  }
+}
+
+@include view-width-max(md) {
+  @include whenStickyNav();
+}
+
+@include view-device(mobile) {
+  @include whenStickyNav();
+}
+
+@include view-width-max(xs) {
+  .pzm-modal {
+    width: calc(100% - 20px);
+    padding: 15px;
+  }
+  .pzm-modal-content {
+    padding: 5px;
+    @include flexbox(column);
+  }
+  .pzm-modal__title {
+    font-size: 32px;
+  }
+  .pzm-modal__content {
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+  }
+
+  .pzm-modal__button {
+    width: 100%;
+
+    & + .pzm-modal__button {
+      margin-left: 0;
+      margin-top: 15px;
+    }
+  }
+}
+
+.pz-modal__title {
+  font: 700 26px nyt-karnakcondensed;
+  font-size: 40px;
+  color: #000000;
+  line-height: 38px;
+}
+
+.pz-modal__message {
+  font: 16px nyt-franklin;
+  line-height: 20px;
+}
+
+.pz-modal__button {
+  font-family: 'nyt-franklin';
+  width: 100%;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  height: 40px;
+  min-width: 86px;
+  font-size: 14px;
+  color: $gray1;
+  touch-action: manipulation;
+  cursor: pointer;
+
+  &:focus {
+    outline-style: auto;
+    outline-width: initial;
+    outline-color: -webkit-focus-ring-color;
+  }
+
+  &.white {
+    background-color: #fff;
+    color: #000;
+
+    &:hover {
+      background-color: #f4f4f4;
+    }
+  }
+
+  &.dark {
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #333333;
+    }
+  }
+
+  &.disabled {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    touch-action: none;
+    cursor: initial;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.pz-button__wrapper {
+  @include flexbox($justify: space-between);
+  margin-top: 12px;
+  margin-bottom: 10px;
+  width: 100%;
+
+  .pz-modal__button {
+    flex-basis: 46%;
+
+    &.full {
+      flex-basis: 100%;
+    }
+  }
+}

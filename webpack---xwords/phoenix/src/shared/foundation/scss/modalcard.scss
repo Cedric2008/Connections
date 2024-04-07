@@ -1,0 +1,115 @@
+@import 'shared/scss-helpers/index.scss';
+
+$modal-card-mobile-width: 280px;
+$modal-card-desktop-width: 307px;
+$modal-card-inset-padding-left: 20px;
+$modal-card-inset-padding-right: 20px;
+$modal-card-icon-width: 40px;
+
+.modal-card {
+  margin: 30px auto;
+  cursor: pointer;
+  display: block;
+  width: $modal-card-mobile-width;
+
+  // Specifically for the short iPhone 5/SE screens
+  @media screen and (max-width: 320px) {
+    margin-top: 10px;
+  }
+
+  @include view-width-min(lg) {
+    width: $modal-card-desktop-width;
+  }
+}
+
+.modal-card__header {
+  font: 700 12px/18px 'nyt-franklin';
+  text-align: center;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.modal-card__inset {
+  @include flexbox($justify: flex-start);
+  text-align: left;
+  margin-top: 10px;
+  width: 100%;
+  height: 80px;
+  border-radius: 5px;
+  padding: 0 20px;
+
+  .sb & {
+    background-color: $spelling-bee-gold;
+
+    &:hover {
+      background-color: #fff082;
+
+      .modal-card__arrow {
+        background-image: none;
+        transform: none;
+
+        &:before {
+          content: 'PLAY';
+          font: 700 11px 'nyt-franklin';
+          letter-spacing: 0.04em;
+          position: absolute;
+          right: 0;
+          top: -2px;
+        }
+      }
+    }
+  }
+
+  @include view-width-min(md) {
+    padding-left: 40px;
+  }
+}
+
+.modal-card__icon {
+  margin-right: 20px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .sb & {
+    background-image: url('/public/assets/bee-ready-0.svg');
+    height: $modal-card-icon-width;
+    width: $modal-card-icon-width;
+  }
+}
+
+.modal-card__info {
+  flex-grow: 2;
+}
+
+.modal-card__arrow {
+  background-image: url('/public/assets/caret-thin-black.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 8px;
+  height: 8px;
+  transform: rotate(-90deg);
+  position: relative;
+}
+
+.modal-card__title {
+  font: 18px/20px 'NYT-KarnakCondensed';
+}
+
+.modal-card__text {
+  font: 500 14px/16px 'nyt-franklin';
+  margin-top: 5px;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.pzm-modal.pzm-with-modalcard {
+  width: $modal-card-mobile-width;
+
+  @include view-width-min(lg) {
+    width: $modal-card-desktop-width;
+  }
+}

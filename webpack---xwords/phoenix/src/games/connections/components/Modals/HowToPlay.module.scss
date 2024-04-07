@@ -1,0 +1,72 @@
+@use '../../../../shared/scss-helpers/fonts.scss';
+
+@import '../../../../shared/scss-helpers/index.scss';
+
+.bold,
+.modalHeading {
+  font-weight: fonts.$weight-bold;
+}
+
+.modalMessage {
+  line-height: 1.25;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.categoryList {
+  vertical-align: baseline;
+  list-style: initial;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.categoryListItem {
+  display: list-item;
+  margin-bottom: 4px;
+}
+
+.categoryListItem > dt,
+.categoryListItem > dd {
+  display: inline-flex;
+}
+
+.categoryDifficultyDescription {
+  margin-bottom: 12px;
+}
+
+.categoryDifficultyKey {
+  margin-left: 11px;
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryKeyItem {
+  display: inline-flex;
+  height: 20px;
+  margin-bottom: 4px;
+}
+
+.categoryKeyColor {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  display: inline-flex;
+  border-radius: 3px;
+}
+
+.helpArrowContainer {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.helpArrow {
+  background: url('/public/assets/connections/help-arrow.svg')
+    no-repeat center;
+  background-size: contain;
+  height: 45px;
+  width: 8px;
+  position: absolute;
+  left: 46px;
+  top: 24px;
+}

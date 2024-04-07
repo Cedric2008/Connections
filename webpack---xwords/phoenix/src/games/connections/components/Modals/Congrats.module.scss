@@ -1,0 +1,126 @@
+@use '../../../../shared/scss-helpers/fonts.scss';
+@import '../../../../shared/scss-helpers/mixins.scss';
+@import '../../../../shared/scss-helpers/colors.scss';
+@import '../variables.scss';
+
+.modalTitle {
+  font: 36px fonts.$karnak-condensed;
+  line-height: 36px;
+  margin: 8px 0 8px 0;
+}
+
+.modalDescription {
+  font-family: fonts.$franklin;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: fonts.$weight-medium;
+  line-height: 20px;
+  margin: 20px 0;
+}
+
+.modalContent {
+  flex-direction: column;
+  gap: 24px;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  padding: 36px 0 32px;
+}
+
+.shareBlocksContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+
+  :last-child {
+    margin-bottom: unset;
+  }
+}
+
+.shareRow {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+  height: 40px;
+}
+
+.shareBlock {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.modalFeedback {
+  font-family: fonts.$franklin;
+  font-size: 13px;
+  font-weight: fonts.$weight-medium;
+  line-height: 20px;
+  letter-spacing: 0.065px;
+}
+
+.modalFeedback > a {
+  font-weight: fonts.$weight-bold;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 2px;
+}
+
+p.timerLabel {
+  font-family: fonts.$franklin;
+  font-size: 20px;
+  font-weight: fonts.$weight-medium-bold;
+  line-height: 20px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 8px;
+  justify-content: center;
+  padding-bottom: unset;
+}
+
+button.button,
+.buttonLink {
+  height: 48px;
+  width: 162px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  letter-spacing: unset;
+}
+
+.playSpellingBee {
+  background-color: $spelling-bee-gold;
+  font-weight: fonts.$weight-medium-bold;
+  border-radius: 9999px;
+}
+
+@media (max-width: $narrow-design-width) {
+  .shareRow {
+    height: 33px;
+    margin-bottom: 4px;
+  }
+
+  .shareBlock {
+    width: 33px;
+    height: 33px;
+  }
+
+  .buttonsContainer {
+    padding-bottom: 16px;
+  }
+}
+
+@include phone {
+  .modalContent {
+    padding: 36px 0 0;
+  }
+}

@@ -1,0 +1,33 @@
+@import '../../../shared/scss-helpers/colors.scss';
+
+.skipNav {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  border: 0;
+
+  &:focus {
+    // skip nav link is visible only on focus
+    clip: auto;
+    height: auto;
+    overflow: auto;
+    position: absolute;
+    width: auto;
+    top: 0;
+    left: 0;
+    // z-index needs to exceed potentially being overlaid on top of header/nav
+    z-index: 200;
+
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.5rem 0.5rem 0.375rem;
+    border-radius: 3px;
+    text-decoration: none;
+    color: $black;
+    background: $white;
+  }
+}

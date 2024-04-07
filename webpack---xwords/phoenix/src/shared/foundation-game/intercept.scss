@@ -1,0 +1,36 @@
+@mixin unplayable {
+  @media only screen and (max-height: 415px) and (orientation: landscape) {
+    @include view-device(mobile) {
+      @content;
+    }
+  }
+}
+
+$image-height: 180px;
+$image-width: 350px;
+
+.pz-intercept {
+  display: none;
+
+  &::after {
+    background: top calc(35vh - #{$image-height * 0.5}) center
+      no-repeat url('/public/assets/landscape-warning.svg');
+    content: 'Oh no! We can’t fit everything on your screen. Please rotate your device.';
+    font-size: 18px;
+    line-height: 1.5;
+    margin: auto;
+    padding-top: 65vh;
+    text-align: center;
+    width: $image-width;
+  }
+}
+
+@include unplayable {
+  &.pz-page.pz-use-intercept > * {
+    display: none;
+  }
+
+  .pz-intercept {
+    display: flex !important;
+  }
+}
