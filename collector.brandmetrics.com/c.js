@@ -1,1 +1,0 @@
-No Content: https://collector.brandmetrics.com/c.js?siteid=4486dfe2-780e-4dfa-a60a-2a948887658f&toploc=www.nytimes.com&rnd=844882
